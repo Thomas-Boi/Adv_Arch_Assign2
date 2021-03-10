@@ -12,12 +12,75 @@
     // Renderer is imported in the header file so don't need to reimport here
     Renderer *glesRenderer;
     Transformations *transformations;
+    bool fogState, flashlightState, lightingState;
     
 }
+
+@property (weak, nonatomic) IBOutlet UIButton *fogBtn;
+@property (weak, nonatomic) IBOutlet UIButton *flashlightBtn;
+@property (weak, nonatomic) IBOutlet UIButton *lightingBtn;
+
+@property (weak, nonatomic) IBOutlet UILabel *console;
+
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
+
 @end
 
 
 @implementation ViewController
+
+// MARK: Gesture handling
+
+- (IBAction)move:(UIPanGestureRecognizer *)sender {
+    if (sender.numberOfTouches == 1) {
+        NSLog(@"Single finger drag");
+    }
+}
+
+- (IBAction)tap:(UITapGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateRecognized) {
+        NSLog(@"Double finger double tap");
+        if (!_console.isHidden) {
+            _console.hidden = true;
+        } else {
+            _console.hidden = false;
+        }
+    }
+}
+
+// MARK: Game options
+
+- (IBAction)switchFog:(UIButton *)sender {
+    if (!fogState) {
+        [_fogBtn setTitle:@"Fog: On" forState:UIControlStateNormal];
+        fogState = true;
+    } else {
+        [_fogBtn setTitle:@"Fog: Off" forState:UIControlStateNormal];
+        fogState = false;
+    }
+}
+
+- (IBAction)switchFlashlight:(UIButton *)sender {
+    if (!flashlightState) {
+        [_flashlightBtn setTitle:@"Flashlight: On" forState:UIControlStateNormal];
+        flashlightState = true;
+    } else {
+        [_flashlightBtn setTitle:@"Flashlight: Off" forState:UIControlStateNormal];
+        flashlightState = false;
+    }
+}
+
+- (IBAction)switchLighting:(UIButton *)sender {
+    // Daytime should be the default
+    if (!lightingState) {
+        [_lightingBtn setTitle:@"Mode: Nightime" forState:UIControlStateNormal];
+        lightingState = true;
+    } else {
+        [_lightingBtn setTitle:@"Mode: Daytime" forState:UIControlStateNormal];
+        lightingState = false;
+    }
+}
+
 - (void)viewDidLoad {
     // in obj-c, this is how you 'call a method'
     // in obj-c, this is called 'send a message'
@@ -39,6 +102,11 @@
     transformations = [[Transformations alloc] initWithDepth:5.0f Scale:1.0f Translation:GLKVector2Make(0.0f, 0.0f) Rotation:GLKVector3Make(0.0f, 0.0f, 0.0f)];
         
     // ### >>>
+    _tapGesture.numberOfTapsRequired = 2;
+    _tapGesture.numberOfTouchesRequired = 2;
+    
+    [_console sizeToFit];
+    _console.hidden = true;
 }
 
 - (void)update
