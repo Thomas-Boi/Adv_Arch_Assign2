@@ -18,6 +18,8 @@
 		FA4FE52D25F96EBC00452F15 /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE52925F96EBC00452F15 /* Renderer.mm */; };
 		FA4FE52E25F96EBC00452F15 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA4FE52A25F96EBC00452F15 /* Shader.fsh */; };
 		FA4FE52F25F96EBC00452F15 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA4FE52B25F96EBC00452F15 /* Shader.vsh */; };
+		FA4FE53425F9708E00452F15 /* Transformations.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE53325F9708E00452F15 /* Transformations.m */; };
+		FA4FE53925F972B600452F15 /* crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA4FE53825F972B600452F15 /* crate.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,9 @@
 		FA4FE52925F96EBC00452F15 /* Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
 		FA4FE52A25F96EBC00452F15 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		FA4FE52B25F96EBC00452F15 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		FA4FE53325F9708E00452F15 /* Transformations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transformations.m; sourceTree = "<group>"; };
+		FA4FE53625F9709800452F15 /* Transformations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Transformations.h; sourceTree = "<group>"; };
+		FA4FE53825F972B600452F15 /* crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = crate.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +76,7 @@
 		FA4FE50925F96E3E00452F15 /* Assignment2 */ = {
 			isa = PBXGroup;
 			children = (
+				FA4FE53825F972B600452F15 /* crate.jpg */,
 				FA4FE52525F96EA500452F15 /* opengl */,
 				FA4FE50A25F96E3E00452F15 /* AppDelegate.h */,
 				FA4FE50B25F96E3E00452F15 /* AppDelegate.m */,
@@ -90,6 +96,8 @@
 		FA4FE52525F96EA500452F15 /* opengl */ = {
 			isa = PBXGroup;
 			children = (
+				FA4FE53625F9709800452F15 /* Transformations.h */,
+				FA4FE53325F9708E00452F15 /* Transformations.m */,
 				FA4FE52825F96EBC00452F15 /* GLESRenderer.cpp */,
 				FA4FE52725F96EBC00452F15 /* GLESRenderer.hpp */,
 				FA4FE52625F96EBC00452F15 /* Renderer.h */,
@@ -159,6 +167,7 @@
 				FA4FE52E25F96EBC00452F15 /* Shader.fsh in Resources */,
 				FA4FE51A25F96E3E00452F15 /* LaunchScreen.storyboard in Resources */,
 				FA4FE51725F96E3E00452F15 /* Assets.xcassets in Resources */,
+				FA4FE53925F972B600452F15 /* crate.jpg in Resources */,
 				FA4FE51525F96E3E00452F15 /* Main.storyboard in Resources */,
 				FA4FE52F25F96EBC00452F15 /* Shader.vsh in Resources */,
 			);
@@ -173,6 +182,7 @@
 			files = (
 				FA4FE52C25F96EBC00452F15 /* GLESRenderer.cpp in Sources */,
 				FA4FE51225F96E3E00452F15 /* ViewController.m in Sources */,
+				FA4FE53425F9708E00452F15 /* Transformations.m in Sources */,
 				FA4FE50C25F96E3E00452F15 /* AppDelegate.m in Sources */,
 				FA4FE51D25F96E3E00452F15 /* main.m in Sources */,
 				FA4FE52D25F96EBC00452F15 /* Renderer.mm in Sources */,

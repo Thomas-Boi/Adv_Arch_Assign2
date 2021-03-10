@@ -11,6 +11,8 @@
 @interface ViewController() {
     // Renderer is imported in the header file so don't need to reimport here
     Renderer *glesRenderer;
+    Transformations *transformations;
+    
 }
 @end
 
@@ -32,12 +34,18 @@
     GLKView *view = (GLKView *)self.view;
     [glesRenderer setup:view]; // send a message to setup method with view as a param
     [glesRenderer loadModels];
+    
+    
+    transformations = [[Transformations alloc] initWithDepth:5.0f Scale:1.0f Translation:GLKVector2Make(0.0f, 0.0f) Rotation:GLKVector3Make(0.0f, 0.0f, 45.0f)];
+        
     // ### >>>
 }
 
 - (void)update
 {
-    [glesRenderer update]; // ###
+    
+    GLKMatrix4 modelViewMatrix = [transformations getModelViewMatrix];
+    [glesRenderer update:modelViewMatrix]; // ###
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect

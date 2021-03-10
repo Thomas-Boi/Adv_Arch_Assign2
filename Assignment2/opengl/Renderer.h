@@ -8,9 +8,12 @@
 
 @interface Renderer : NSObject
 
+@property float rotAngle;
+@property bool isRotating;
+
 - (void)setup:(GLKView *)view;
 - (void)loadModels;
-- (void)update;
+- (void)update: (GLKMatrix4) modelViewMatrix;
 - (void)draw:(CGRect)drawRect;
 
 @end
