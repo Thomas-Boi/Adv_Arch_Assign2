@@ -1,172 +1,216 @@
 //
-//  Copyright © 2017 Borna Noureddin. All rights reserved.
+//  Copyright © Borna Noureddin. All rights reserved.
 //
 
 #import "Renderer.h"
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
-#include "GLESRenderer.hpp"
 #include <chrono>
+#include "GLESRenderer.hpp"
 
-// Uniform index.
+
+
+//===========================================================================
+//  GL uniforms, attributes, etc.
+
+// List of uniform values used in shaders
 enum
 {
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_NORMAL_MATRIX,
-    UNIFORM_PASSTHROUGH,
-    UNIFORM_SHADEINFRAG,
     UNIFORM_TEXTURE,
+    UNIFORM_MODELVIEW_MATRIX,
+    // ### Add uniforms for lighting parameters here...
     NUM_UNIFORMS
 };
 GLint uniforms[NUM_UNIFORMS];
 
-// Attribute index.
+// List of vertex attributes
 enum
 {
-    ATTRIB_VERTEX,
+    ATTRIB_POSITION,
     ATTRIB_NORMAL,
+    ATTRIB_TEXTURE_COORDINATE,
     NUM_ATTRIBUTES
 };
 
+#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+
+
+
+//===========================================================================
+//  Class interface
 @interface Renderer () {
+
+    // iOS hooks
     GLKView *theView;
+
+    
+    // GL ES variables
     GLESRenderer glesRenderer;
-    GLuint programObject;
+    GLuint _program;
     GLuint crateTexture;
     
-    GLKMatrix4 mvp;
-    GLKMatrix3 normalMatrix;
+    // GLES buffer IDs
+    GLuint _vertexArray;
+    GLuint _vertexBuffers[3];
+    GLuint _indexBuffer;
 
-    float *vertices, *normals, *texCoords;
-    int *indices, numIndices;
+    // Transformation matrices
+    GLKMatrix4 _modelViewProjectionMatrix;
+    GLKMatrix3 _normalMatrix;
+    GLKMatrix4 _modelViewMatrix;
+    GLKMatrix4 projectionMatrix;
     
+    // Lighting parameters
+    // ### Add lighting parameter variables here...
+
+    
+    // Model
+    float *vertices, *normals, *texCoords;
+    GLuint *indices, numIndices;
+
+    
+    // Misc UI variables
     std::chrono::time_point<std::chrono::steady_clock> lastTime;
     float rotAngle;
-    bool isRotating;
-    
 }
 
 @end
 
+
+
+//===========================================================================
+//  Class implementation
 @implementation Renderer
 
-@synthesize isRotating;
-@synthesize rotAngle;
 
-- (void)dealloc
-{
-    glDeleteProgram(programObject);
-}
-
-- (void)loadModels
-{
-    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices);
-}
-
-/*! Set up the view
- \ param view, a view
- */
+//=======================
+// Initial setup of GL using iOS view
+//=======================
 - (void)setup:(GLKView *)view
 {
+    // Create GL context
     view.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
-    
     if (!view.context) {
         NSLog(@"Failed to create ES context");
     }
-    
+
+    // Set up context
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     theView = view;
     [EAGLContext setCurrentContext:view.context];
+    
+    // Load in and set up shaders
     if (![self setupShaders])
         return;
+    
+    // Initialize UI element variables
     rotAngle = 0.0f;
-    isRotating = 1;
 
-    crateTexture = [self setupTexture:@"crate.jpg"];
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, crateTexture);
-    glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
-
+    // Initialize GL color and other parameters
     glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
     glEnable(GL_DEPTH_TEST);
     lastTime = std::chrono::steady_clock::now();
     
-}
-
-- (void)update:(GLKMatrix4) transformations
-{
-    auto currentTime = std::chrono::steady_clock::now();
-    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
-    lastTime = currentTime;
+    // Calculate projection matrix
+    float aspect = fabsf(theView.bounds.size.width / theView.bounds.size.height);
+    projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
     
-    if (isRotating)
-    {
-        rotAngle += 0.001f * elapsedTime;
-        if (rotAngle >= 360.0f)
-            rotAngle = 0.0f;
-    }
-    mvp = GLKMatrix4Rotate(transformations, rotAngle, 0.0, 1.0, 0.0 );
-    
-    // Perspective
-    normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvp), NULL);
-
-    float aspect = (float)theView.drawableWidth / (float)theView.drawableHeight;
-    GLKMatrix4 perspective = GLKMatrix4MakePerspective(60.0f * M_PI / 180.0f, aspect, 1.0f, 20.0f);
-
-    mvp = GLKMatrix4Multiply(perspective, mvp);
-}
-
-- (void)draw:(CGRect)drawRect;
-{
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, FALSE, (const float *)mvp.m);
-    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalMatrix.m);
-    glUniform1i(uniforms[UNIFORM_PASSTHROUGH], false);
-    glUniform1i(uniforms[UNIFORM_SHADEINFRAG], true);
-
-    glViewport(0, 0, (int)theView.drawableWidth, (int)theView.drawableHeight);
-    glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    glUseProgram ( programObject );
-
-    glVertexAttribPointer ( 0, 3, GL_FLOAT,
-                           GL_FALSE, 3 * sizeof ( GLfloat ), vertices );
-    glEnableVertexAttribArray ( 0 );
-
-    glVertexAttrib4f ( 1, 0.0f, 1.0f, 0.0f, 1.0f );
-
-    glVertexAttribPointer ( 2, 3, GL_FLOAT,
-                           GL_FALSE, 3 * sizeof ( GLfloat ), normals );
-    glEnableVertexAttribArray ( 2 );
-
-    glVertexAttribPointer ( 3, 2, GL_FLOAT,
-                           GL_FALSE, 2 * sizeof ( GLfloat ), texCoords );
-    glEnableVertexAttribArray ( 3 );
-    
-    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, FALSE, (const float *)mvp.m);
-    glDrawElements ( GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, indices );
 }
 
 
+//=======================
+// Load and set up shaders
+//=======================
 - (bool)setupShaders
 {
     // Load shaders
     char *vShaderStr = glesRenderer.LoadShaderFile([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"Shader.vsh"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"Shader.vsh"] pathExtension]] cStringUsingEncoding:1]);
     char *fShaderStr = glesRenderer.LoadShaderFile([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"Shader.fsh"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"Shader.fsh"] pathExtension]] cStringUsingEncoding:1]);
-    programObject = glesRenderer.LoadProgram(vShaderStr, fShaderStr);
-    if (programObject == 0)
+    _program = glesRenderer.LoadProgram(vShaderStr, fShaderStr);
+    if (_program == 0)
         return false;
     
-    // Set up uniform variables
-    uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(programObject, "modelViewProjectionMatrix");
-    uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(programObject, "normalMatrix");
-    uniforms[UNIFORM_PASSTHROUGH] = glGetUniformLocation(programObject, "passThrough");
-    uniforms[UNIFORM_SHADEINFRAG] = glGetUniformLocation(programObject, "shadeInFrag");
-    uniforms[UNIFORM_TEXTURE] = glGetUniformLocation(programObject, "texSampler");
+    // Bind attribute locations.
+    // This needs to be done prior to linking.
+    glBindAttribLocation(_program, ATTRIB_POSITION, "position");
+    glBindAttribLocation(_program, ATTRIB_NORMAL, "normal");
+    glBindAttribLocation(_program, ATTRIB_TEXTURE_COORDINATE, "texCoordIn");
+    
+    // Link shader program
+    _program = glesRenderer.LinkProgram(_program);
+
+    // Get uniform locations.
+    uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
+    uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
+    uniforms[UNIFORM_MODELVIEW_MATRIX] = glGetUniformLocation(_program, "modelViewMatrix");
+    uniforms[UNIFORM_TEXTURE] = glGetUniformLocation(_program, "texSampler");
+    // ### Add lighting uniform locations here...
+
+    // Set up lighting parameters
+    // ### Set default lighting parameter values here...
 
     return true;
 }
 
 
+//=======================
+// Load model(s)
+//=======================
+- (void)loadModels
+{
+    // Create VAOs
+    glGenVertexArrays(1, &_vertexArray);
+    glBindVertexArray(_vertexArray);
+
+    // Create VBOs
+    glGenBuffers(NUM_ATTRIBUTES, _vertexBuffers);   // One buffer for each attribute
+    glGenBuffers(1, &_indexBuffer);                 // Index buffer
+
+    // Generate vertex attribute values from model
+    int numVerts;
+    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices, &numVerts);
+
+    // Set up VBOs...
+    
+    // Position
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffers[0]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*3*numVerts, vertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(ATTRIB_POSITION);
+    glVertexAttribPointer(ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), BUFFER_OFFSET(0));
+    
+    // Normal vector
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffers[1]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*3*numVerts, normals, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(ATTRIB_NORMAL);
+    glVertexAttribPointer(ATTRIB_NORMAL, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), BUFFER_OFFSET(0));
+    
+    // Texture coordinate
+    glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffers[2]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*3*numVerts, texCoords, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(ATTRIB_TEXTURE_COORDINATE);
+    glVertexAttribPointer(ATTRIB_TEXTURE_COORDINATE, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), BUFFER_OFFSET(0));
+    
+    
+    // Set up index buffer
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)*numIndices, indices, GL_STATIC_DRAW);
+    
+    // Reset VAO
+    glBindVertexArray(0);
+
+    // Load texture to apply and set up texture in GL
+    crateTexture = [self setupTexture:@"crate.jpg"];
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, crateTexture);
+    glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
+}
+
+
+//=======================
 // Load in and set up texture image (adapted from Ray Wenderlich)
+//=======================
 - (GLuint)setupTexture:(NSString *)fileName
 {
     CGImageRef spriteImage = [UIImage imageNamed:fileName].CGImage;
@@ -192,11 +236,89 @@ enum
     
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int)width, (int)height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
     
     free(spriteData);
     return texName;
 }
+
+//=======================
+// Clean up code before deallocating renderer object
+//=======================
+- (void)dealloc
+{
+    // Delete GL buffers
+    glDeleteBuffers(3, _vertexBuffers);
+    glDeleteBuffers(1, &_indexBuffer);
+    glDeleteVertexArrays(1, &_vertexArray);
+     
+     // Delete vertices buffers
+     if (vertices)
+         free(vertices);
+     if (indices)
+         free(indices);
+     if (normals)
+         free(normals);
+     if (texCoords)
+         free(texCoords);
+     
+     // Delete shader program
+     if (_program) {
+         glDeleteProgram(_program);
+         _program = 0;
+     }
+}
+
+
+//=======================
+// Update each frame
+//=======================
+- (void)update:(GLKMatrix4) modelViewTransform
+{
+    // Calculate elapsed time
+    auto currentTime = std::chrono::steady_clock::now();
+    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
+    lastTime = currentTime;
+
+    rotAngle += 0.001f * elapsedTime;
+    if (rotAngle >= 360.0f)
+        rotAngle = 0.0f;
+    
+    _modelViewMatrix = GLKMatrix4Rotate(modelViewTransform, rotAngle, 0.0f, 1.0f, 0.0f);
+    
+    // Calculate normal matrix
+    _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), NULL);
+    
+
+
+    // Calculate model-view-projection matrix
+    _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, _modelViewMatrix);
+}
+
+
+//=======================
+// Draw calls for each frame
+//=======================
+- (void)draw:(CGRect)drawRect;
+{
+    // Clear window
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    // Select VAO and shaders
+    glBindVertexArray(_vertexArray);
+    glUseProgram(_program);
+    
+    // Set up uniforms
+    glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
+    glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
+    // ### Set values for lighting parameter uniforms here...
+    
+    // Select VBO and draw
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
+    glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
+}
+
 
 @end
 

@@ -1,6 +1,6 @@
 //
 //  Copyright © Borna Noureddin. All rights reserved.
-// this declares the interface for Renderer.mm
+//
 
 #ifndef Renderer_h
 #define Renderer_h
@@ -8,13 +8,10 @@
 
 @interface Renderer : NSObject
 
-@property float rotAngle;
-@property bool isRotating;
-
-- (void)setup:(GLKView *)view;
-- (void)loadModels;
-- (void)update: (GLKMatrix4) modelViewMatrix;
-- (void)draw:(CGRect)drawRect;
+- (void)setup:(GLKView *)view;      // Set up GL using the current View
+- (void)loadModels;                 // Load models (e.g., cube to rotate)
+- (void)update:(GLKMatrix4) modelViewTransform;                     // Update GL
+- (void)draw:(CGRect)drawRect;      // Make the GL draw calls
 
 @end
 

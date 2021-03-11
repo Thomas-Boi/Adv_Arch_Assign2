@@ -19,10 +19,13 @@ public:
     char *LoadShaderFile(const char *shaderFileName);
     GLuint LoadShader(GLenum type, const char *shaderSrc);
     GLuint LoadProgram(const char *vertShaderSrc, const char *fragShaderSrc);
+    GLuint LinkProgram(GLuint programObject);
 
-    int GenCube(float scale, float **vertices, float **normals,
-                float **texCoords, int **indices);
-    int GenSquare(float scale, float **vertices, int **indices);
+    int GenCube(float scale, GLfloat **vertices, GLfloat **normals,
+                GLfloat **texCoords, GLuint **indices, int *numVerts);
+    
+private:
+    GLuint vertexShader, fragmentShader;
 
 };
 
