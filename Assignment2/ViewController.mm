@@ -35,7 +35,24 @@
 
 - (IBAction)move:(UIPanGestureRecognizer *)sender {
     if (sender.numberOfTouches == 1) {
-        NSLog(@"Single finger drag");
+        CGPoint velocity = [sender velocityInView:self.view];
+        NSLog(@"Velocity %.1f, %.1f", velocity.x, velocity.y);
+
+        // Y-up is negative, Y-down is positive
+        float x = 0.0f, y = 0.0f, z = 0.0f;
+        
+        if (velocity.x > 0) { // right
+            x = 0.05f;
+        } else if (velocity.x < 0) { // left
+            x = -0.05f;
+        }
+        if (velocity.y < 0) { // up
+            y = 0.05f;
+        } else if (velocity.y > 0) { // down
+            y = -0.05f;
+        }
+        [playerTransformations translateBy:GLKVector3Make(x, y, z)];
+
     }
 }
 
@@ -75,10 +92,10 @@
 - (IBAction)switchLighting:(UIButton *)sender {
     // Daytime should be the default
     if (!lightingState) {
-        [_lightingBtn setTitle:@"Mode: Nightime" forState:UIControlStateNormal];
+        [_lightingBtn setTitle:@"Mode: Night" forState:UIControlStateNormal];
         lightingState = true;
     } else {
-        [_lightingBtn setTitle:@"Mode: Daytime" forState:UIControlStateNormal];
+        [_lightingBtn setTitle:@"Mode: Day" forState:UIControlStateNormal];
         lightingState = false;
     }
 }
@@ -98,7 +115,7 @@
     glesRenderer = [[Renderer alloc] init];
     GLKView *view = (GLKView *)self.view;
     // Initialize transformations for the player
-    playerTransformations = [[Transformations alloc] initWithDepth:5.0f Scale:1.0f Translation:GLKVector2Make(0.0f, -1.0f) Rotation:0 RotationAxis:GLKVector3Make(0.0, 0.0, 1.0)];
+    playerTransformations = [[Transformations alloc] initWithScale:1.0f Translation:GLKVector3Make(0.0f, -1.0f, -5.0f) Rotation:0 RotationAxis:GLKVector3Make(0.0, 0.0, 1.0)];
     [playerTransformations start];
     
     // set up the opengl window and draw
