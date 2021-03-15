@@ -33,9 +33,7 @@ enum
     // VAO and VBO buffers
     GLuint vertexArray;
     GLuint vertexBuffers[3];
-    GLuint indexBuffer;
-    
-    
+    GLuint indexBuffer;    
 }
 @end
 

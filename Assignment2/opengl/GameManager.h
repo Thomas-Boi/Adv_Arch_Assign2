@@ -11,6 +11,7 @@
 #import <GLKit/GLKit.h>
 #import "GameObject.h"
 #import "Player.h"
+#import "Cube.h"
 #import "Platform.h"
 #import "Renderer.h"
 #import "ObjectTracker.h"

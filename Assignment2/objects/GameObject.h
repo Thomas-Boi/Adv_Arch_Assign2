@@ -16,8 +16,8 @@
 
 @interface GameObject : NSObject
 @property(readonly) int _id;
-@property(readonly) GLKMatrix4 modelViewMatrix;
-@property(readonly) GLKMatrix3 normalMatrix;
+@property GLKMatrix4 modelViewMatrix;
+@property GLKMatrix3 normalMatrix;
 
 // VAO and index buffer
 @property(readonly) GLuint vertexArray;

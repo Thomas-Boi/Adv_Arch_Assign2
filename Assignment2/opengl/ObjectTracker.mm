@@ -10,6 +10,7 @@
 @interface ObjectTracker()
 {
     Player *_player;
+    Cube *_cube;
     NSMutableArray *_platforms;
 }
 
@@ -19,6 +20,7 @@
 
 // props
 @synthesize player=_player;
+@synthesize cube=_cube;
 
 - (NSMutableArray *) platforms
 {
@@ -28,6 +30,11 @@
 - (void) addPlayer: (Player *) player
 {
     _player = player;
+}
+
+- (void) addCube: (Cube *) cube
+{
+    _cube = cube;
 }
 
 - (void) addPlatform: (Platform *) platform

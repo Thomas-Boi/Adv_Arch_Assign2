@@ -10,15 +10,18 @@
 
 #import "Player.h"
 #import "Platform.h"
+#import "Cube.h"
 #import <Foundation/Foundation.h>
 
 
 @interface ObjectTracker : NSObject
 
 @property(readonly) Player *player;
+@property(readonly) Cube *cube;
 @property(readonly) NSMutableArray *platforms;
 
 - (void) addPlayer: (Player *) player;
+- (void) addCube: (Cube *) cube;
 - (void) addPlatform: (Platform *) platform;
 - (void) cleanUp;
 

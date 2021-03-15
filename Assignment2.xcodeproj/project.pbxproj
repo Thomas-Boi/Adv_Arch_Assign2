@@ -22,7 +22,7 @@
 		FA4FE54D25F9A62F00452F15 /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE54C25F9A62F00452F15 /* Renderer.mm */; };
 		FA4FE55425F9B00A00452F15 /* DisjointSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE55025F9B00A00452F15 /* DisjointSet.cpp */; };
 		FA4FE55525F9B00A00452F15 /* maze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE55125F9B00A00452F15 /* maze.cpp */; };
-		FACA780525FF0D4F00DDC233 /* Cube.m in Sources */ = {isa = PBXBuildFile; fileRef = FACA780425FF0D4F00DDC233 /* Cube.m */; };
+		FACA780525FF0D4F00DDC233 /* Cube.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA780425FF0D4F00DDC233 /* Cube.mm */; };
 		FACA780925FF13C600DDC233 /* GameObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA780725FF13C600DDC233 /* GameObject.mm */; };
 		FACA781425FF1C7D00DDC233 /* ObjectTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA781025FF1C7D00DDC233 /* ObjectTracker.mm */; };
 		FACA781525FF1C7D00DDC233 /* GameManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA781125FF1C7D00DDC233 /* GameManager.mm */; };
@@ -57,7 +57,7 @@
 		FA4FE55225F9B00A00452F15 /* DisjointSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisjointSet.h; sourceTree = "<group>"; };
 		FA4FE55325F9B00A00452F15 /* maze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maze.h; sourceTree = "<group>"; };
 		FACA780325FF0D3800DDC233 /* Cube.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cube.h; sourceTree = "<group>"; };
-		FACA780425FF0D4F00DDC233 /* Cube.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Cube.m; sourceTree = "<group>"; };
+		FACA780425FF0D4F00DDC233 /* Cube.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Cube.mm; sourceTree = "<group>"; };
 		FACA780725FF13C600DDC233 /* GameObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameObject.mm; sourceTree = "<group>"; };
 		FACA780825FF13C600DDC233 /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
 		FACA780B25FF13FD00DDC233 /* UniformEnum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniformEnum.h; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 				FACA780825FF13C600DDC233 /* GameObject.h */,
 				FACA780725FF13C600DDC233 /* GameObject.mm */,
 				FACA780325FF0D3800DDC233 /* Cube.h */,
-				FACA780425FF0D4F00DDC233 /* Cube.m */,
+				FACA780425FF0D4F00DDC233 /* Cube.mm */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -246,7 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FACA780525FF0D4F00DDC233 /* Cube.m in Sources */,
+				FACA780525FF0D4F00DDC233 /* Cube.mm in Sources */,
 				FACA780925FF13C600DDC233 /* GameObject.mm in Sources */,
 				FA4FE55425F9B00A00452F15 /* DisjointSet.cpp in Sources */,
 				FA4FE52C25F96EBC00452F15 /* GLESRenderer.cpp in Sources */,

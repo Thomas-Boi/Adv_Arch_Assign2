@@ -7,9 +7,14 @@
 
 #ifndef Cube_h
 #define Cube_h
+#import <Foundation/Foundation.h>
+#import "GameObject.h"
+#include <chrono>
 
-@interface Cube : NSObject
+@interface Cube : GameObject
 
-- 
+- (void)initRotation;
+
+@end
 
 #endif /* Cube_h */
