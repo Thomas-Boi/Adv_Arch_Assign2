@@ -32,5 +32,8 @@
 - (bool)setupVertShader:(NSString *) vShaderName AndFragShader:(NSString *) fShaderName;
 - (void)loadModels:(NSString *)modelName;
 - (void)loadTransformation:(GLKMatrix4) transformation;
+- (void)update;
+- (void)updateWithTransformation:(GLKMatrix4) transformation;
+
 @end
 #endif /* GameObject_h */
