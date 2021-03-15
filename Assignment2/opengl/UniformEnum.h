@@ -16,9 +16,9 @@ typedef enum
 {
     UNIFORM_MODELVIEWPROJECTION_MATRIX,
     UNIFORM_NORMAL_MATRIX,
-    UNIFORM_PASSTHROUGH,
-    UNIFORM_SHADEINFRAG,
     UNIFORM_TEXTURE,
+    UNIFORM_MODELVIEW_MATRIX,
+    // ### Add uniforms for lighting parameters here...
     NUM_UNIFORMS
 } UniformEnum;
 

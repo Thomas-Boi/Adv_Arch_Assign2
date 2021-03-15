@@ -11,7 +11,9 @@
 @interface ViewController() {
     // Renderer is imported in the header file so don't need to reimport here
     Renderer *glesRenderer;
+    GameManager *manager;
     Transformations *transformations;
+    Transformations *playerTransformations;
     bool fogState, flashlightState, lightingState;
     
 }
@@ -95,11 +97,16 @@
     // result into another message call. Now, call the return obj's init method.
     glesRenderer = [[Renderer alloc] init];
     GLKView *view = (GLKView *)self.view;
-    [glesRenderer setup:view]; // send a message to setup method with view as a param
-    [glesRenderer loadModels];
+    // Initialize transformations for the player
+    playerTransformations = [[Transformations alloc] initWithDepth:5.0f Scale:1.0f Translation:GLKVector2Make(0.0f, -1.0f) Rotation:0 RotationAxis:GLKVector3Make(0.0, 0.0, 1.0)];
+    [playerTransformations start];
     
+    // set up the opengl window and draw
+    // set up the manager
+    manager = [[GameManager alloc] init];
+    GLKMatrix4 initialPlayerTransformation = [playerTransformations getModelViewMatrix];
+    [manager initManager:view initialPlayerTransform:initialPlayerTransformation];
     
-    transformations = [[Transformations alloc] initWithDepth:5.0f Scale:1.0f Translation:GLKVector2Make(0.0f, 0.0f) Rotation:GLKVector3Make(0.0f, 0.0f, 0.0f)];
         
     // ### >>>
     _tapGesture.numberOfTapsRequired = 2;
@@ -112,13 +119,13 @@
 - (void)update
 {
     
-    GLKMatrix4 modelViewMatrix = [transformations getModelViewMatrix];
-    [glesRenderer update:modelViewMatrix]; // ###
+    GLKMatrix4 modelViewMatrix = [playerTransformations getModelViewMatrix];
+    [manager update:modelViewMatrix]; // ###
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    [glesRenderer draw:rect]; // ### send message to draw method with rect as param
+    [manager draw];
 }
 
 

@@ -14,29 +14,7 @@
 //  GL uniforms, attributes, etc.
 
 // List of uniform values used in shaders
-enum
-{
-    UNIFORM_MODELVIEWPROJECTION_MATRIX,
-    UNIFORM_NORMAL_MATRIX,
-    UNIFORM_TEXTURE,
-    UNIFORM_MODELVIEW_MATRIX,
-    // ### Add uniforms for lighting parameters here...
-    NUM_UNIFORMS
-};
-GLint uniforms[NUM_UNIFORMS];
-
-// List of vertex attributes
-enum
-{
-    ATTRIB_POSITION,
-    ATTRIB_NORMAL,
-    ATTRIB_TEXTURE_COORDINATE,
-    NUM_ATTRIBUTES
-};
-
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
-
-
 
 //===========================================================================
 //  Class interface
@@ -51,7 +29,7 @@ enum
     GLuint _program;
     GLuint crateTexture;
     
-    // GLES buffer IDs
+    // GLES buffer
     GLuint _vertexArray;
     GLuint _vertexBuffers[3];
     GLuint _indexBuffer;
@@ -100,11 +78,7 @@ enum
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     theView = view;
     [EAGLContext setCurrentContext:view.context];
-    
-    // Load in and set up shaders
-    if (![self setupShaders])
-        return;
-    
+        
     // Initialize UI element variables
     rotAngle = 0.0f;
 
@@ -120,92 +94,6 @@ enum
 }
 
 
-//=======================
-// Load and set up shaders
-//=======================
-- (bool)setupShaders
-{
-    // Load shaders
-    char *vShaderStr = glesRenderer.LoadShaderFile([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"Shader.vsh"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"Shader.vsh"] pathExtension]] cStringUsingEncoding:1]);
-    char *fShaderStr = glesRenderer.LoadShaderFile([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"Shader.fsh"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"Shader.fsh"] pathExtension]] cStringUsingEncoding:1]);
-    _program = glesRenderer.LoadProgram(vShaderStr, fShaderStr);
-    if (_program == 0)
-        return false;
-    
-    // Bind attribute locations.
-    // This needs to be done prior to linking.
-    glBindAttribLocation(_program, ATTRIB_POSITION, "position");
-    glBindAttribLocation(_program, ATTRIB_NORMAL, "normal");
-    glBindAttribLocation(_program, ATTRIB_TEXTURE_COORDINATE, "texCoordIn");
-    
-    // Link shader program
-    _program = glesRenderer.LinkProgram(_program);
-
-    // Get uniform locations.
-    uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "modelViewProjectionMatrix");
-    uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "normalMatrix");
-    uniforms[UNIFORM_MODELVIEW_MATRIX] = glGetUniformLocation(_program, "modelViewMatrix");
-    uniforms[UNIFORM_TEXTURE] = glGetUniformLocation(_program, "texSampler");
-    // ### Add lighting uniform locations here...
-
-    // Set up lighting parameters
-    // ### Set default lighting parameter values here...
-
-    return true;
-}
-
-
-//=======================
-// Load model(s)
-//=======================
-- (void)loadModels
-{
-    // Create VAOs
-    glGenVertexArrays(1, &_vertexArray);
-    glBindVertexArray(_vertexArray);
-
-    // Create VBOs
-    glGenBuffers(NUM_ATTRIBUTES, _vertexBuffers);   // One buffer for each attribute (position, tex, normal). See the uniforms at the top
-    glGenBuffers(1, &_indexBuffer);                 // Index buffer
-
-    // Generate vertex attribute values from model
-    int numVerts;
-    numIndices = glesRenderer.GenCube(1.0f, &vertices, &normals, &texCoords, &indices, &numVerts);
-
-    // Set up VBOs...
-    
-    // Position
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffers[0]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*3*numVerts, vertices, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(ATTRIB_POSITION);
-    glVertexAttribPointer(ATTRIB_POSITION, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), BUFFER_OFFSET(0));
-    
-    // Normal vector
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffers[1]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*3*numVerts, normals, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(ATTRIB_NORMAL);
-    glVertexAttribPointer(ATTRIB_NORMAL, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), BUFFER_OFFSET(0));
-    
-    // Texture coordinate
-    glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffers[2]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*3*numVerts, texCoords, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(ATTRIB_TEXTURE_COORDINATE);
-    glVertexAttribPointer(ATTRIB_TEXTURE_COORDINATE, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), BUFFER_OFFSET(0));
-    
-    
-    // Set up index buffer
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)*numIndices, indices, GL_STATIC_DRAW);
-    
-    // Reset VAO
-    glBindVertexArray(0);
-
-    // Load texture to apply and set up texture in GL
-    crateTexture = [self setupTexture:@"crate.jpg"];
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, crateTexture);
-    glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
-}
 
 
 //=======================
@@ -265,16 +153,19 @@ enum
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, _modelViewMatrix);
 }
 
-
-//=======================
-// Draw calls for each frame
-//=======================
-- (void)draw:(CGRect)drawRect;
+- (void)clear
 {
     // Clear window
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+}
+
+//=======================
+// Draw calls for each frame
+//=======================
+- (void)draw:(GameObject *) obj
+{
+    /*
     // Select VAO and shaders
     glBindVertexArray(_vertexArray);
     glUseProgram(_program);
@@ -287,6 +178,22 @@ enum
     // Select VBO and draw
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBuffer);
     glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
+    */
+    // Select VAO and shaders
+    glBindVertexArray(obj.vertexArray);
+    glUseProgram(obj.programObject);
+    
+    // Set up uniforms
+    GLKMatrix4 modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, obj.modelViewMatrix);
+
+    glUniformMatrix4fv(obj.uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, modelViewProjectionMatrix.m);
+    glUniformMatrix3fv(obj.uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, obj.normalMatrix.m);
+    // ### Set values for lighting parameter uniforms here...
+    
+    // Select VBO and draw
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, obj.indexBuffer);
+    glDrawElements(GL_TRIANGLES, obj.numIndices, GL_UNSIGNED_INT, 0);
+    
 }
 
 

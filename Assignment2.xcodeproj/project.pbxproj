@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		FA4FE50C25F96E3E00452F15 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE50B25F96E3E00452F15 /* AppDelegate.m */; };
 		FA4FE50F25F96E3E00452F15 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE50E25F96E3E00452F15 /* SceneDelegate.m */; };
-		FA4FE51225F96E3E00452F15 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE51125F96E3E00452F15 /* ViewController.m */; };
+		FA4FE51225F96E3E00452F15 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE51125F96E3E00452F15 /* ViewController.mm */; };
 		FA4FE51525F96E3E00452F15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA4FE51325F96E3E00452F15 /* Main.storyboard */; };
 		FA4FE51725F96E3E00452F15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA4FE51625F96E3E00452F15 /* Assets.xcassets */; };
 		FA4FE51A25F96E3E00452F15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA4FE51825F96E3E00452F15 /* LaunchScreen.storyboard */; };
@@ -24,6 +24,10 @@
 		FA4FE55525F9B00A00452F15 /* maze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE55125F9B00A00452F15 /* maze.cpp */; };
 		FACA780525FF0D4F00DDC233 /* Cube.m in Sources */ = {isa = PBXBuildFile; fileRef = FACA780425FF0D4F00DDC233 /* Cube.m */; };
 		FACA780925FF13C600DDC233 /* GameObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA780725FF13C600DDC233 /* GameObject.mm */; };
+		FACA781425FF1C7D00DDC233 /* ObjectTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA781025FF1C7D00DDC233 /* ObjectTracker.mm */; };
+		FACA781525FF1C7D00DDC233 /* GameManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA781125FF1C7D00DDC233 /* GameManager.mm */; };
+		FACA781B25FF1CCC00DDC233 /* Player.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA781825FF1CCC00DDC233 /* Player.mm */; };
+		FACA781C25FF1CCC00DDC233 /* Platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA781925FF1CCC00DDC233 /* Platform.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +37,7 @@
 		FA4FE50D25F96E3E00452F15 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		FA4FE50E25F96E3E00452F15 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		FA4FE51025F96E3E00452F15 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FA4FE51125F96E3E00452F15 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FA4FE51125F96E3E00452F15 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		FA4FE51425F96E3E00452F15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FA4FE51625F96E3E00452F15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA4FE51925F96E3E00452F15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -57,6 +61,14 @@
 		FACA780725FF13C600DDC233 /* GameObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameObject.mm; sourceTree = "<group>"; };
 		FACA780825FF13C600DDC233 /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
 		FACA780B25FF13FD00DDC233 /* UniformEnum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniformEnum.h; sourceTree = "<group>"; };
+		FACA781025FF1C7D00DDC233 /* ObjectTracker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ObjectTracker.mm; sourceTree = "<group>"; };
+		FACA781125FF1C7D00DDC233 /* GameManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameManager.mm; sourceTree = "<group>"; };
+		FACA781225FF1C7D00DDC233 /* ObjectTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectTracker.h; sourceTree = "<group>"; };
+		FACA781325FF1C7D00DDC233 /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
+		FACA781725FF1CCC00DDC233 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		FACA781825FF1CCC00DDC233 /* Player.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Player.mm; sourceTree = "<group>"; };
+		FACA781925FF1CCC00DDC233 /* Platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Platform.mm; sourceTree = "<group>"; };
+		FACA781A25FF1CCC00DDC233 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +101,7 @@
 		FA4FE50925F96E3E00452F15 /* Assignment2 */ = {
 			isa = PBXGroup;
 			children = (
+				FACA780F25FF1C4B00DDC233 /* objects */,
 				FACA780D25FF14CC00DDC233 /* shaders */,
 				FA4FE54F25F9B00100452F15 /* maze */,
 				FA4FE53825F972B600452F15 /* crate.jpg */,
@@ -98,7 +111,7 @@
 				FA4FE50D25F96E3E00452F15 /* SceneDelegate.h */,
 				FA4FE50E25F96E3E00452F15 /* SceneDelegate.m */,
 				FA4FE51025F96E3E00452F15 /* ViewController.h */,
-				FA4FE51125F96E3E00452F15 /* ViewController.m */,
+				FA4FE51125F96E3E00452F15 /* ViewController.mm */,
 				FA4FE51325F96E3E00452F15 /* Main.storyboard */,
 				FA4FE51625F96E3E00452F15 /* Assets.xcassets */,
 				FA4FE51825F96E3E00452F15 /* LaunchScreen.storyboard */,
@@ -111,17 +124,17 @@
 		FA4FE52525F96EA500452F15 /* opengl */ = {
 			isa = PBXGroup;
 			children = (
+				FACA781325FF1C7D00DDC233 /* GameManager.h */,
+				FACA781125FF1C7D00DDC233 /* GameManager.mm */,
+				FACA781225FF1C7D00DDC233 /* ObjectTracker.h */,
+				FACA781025FF1C7D00DDC233 /* ObjectTracker.mm */,
 				FACA780B25FF13FD00DDC233 /* UniformEnum.h */,
-				FACA780825FF13C600DDC233 /* GameObject.h */,
-				FACA780725FF13C600DDC233 /* GameObject.mm */,
 				FA4FE54B25F9A62F00452F15 /* Renderer.h */,
 				FA4FE54C25F9A62F00452F15 /* Renderer.mm */,
 				FA4FE53625F9709800452F15 /* Transformations.h */,
 				FA4FE53325F9708E00452F15 /* Transformations.m */,
 				FA4FE52825F96EBC00452F15 /* GLESRenderer.cpp */,
 				FA4FE52725F96EBC00452F15 /* GLESRenderer.hpp */,
-				FACA780325FF0D3800DDC233 /* Cube.h */,
-				FACA780425FF0D4F00DDC233 /* Cube.m */,
 			);
 			path = opengl;
 			sourceTree = "<group>";
@@ -144,6 +157,21 @@
 				FA4FE52B25F96EBC00452F15 /* Shader.vsh */,
 			);
 			path = shaders;
+			sourceTree = "<group>";
+		};
+		FACA780F25FF1C4B00DDC233 /* objects */ = {
+			isa = PBXGroup;
+			children = (
+				FACA781A25FF1CCC00DDC233 /* Platform.h */,
+				FACA781925FF1CCC00DDC233 /* Platform.mm */,
+				FACA781725FF1CCC00DDC233 /* Player.h */,
+				FACA781825FF1CCC00DDC233 /* Player.mm */,
+				FACA780825FF13C600DDC233 /* GameObject.h */,
+				FACA780725FF13C600DDC233 /* GameObject.mm */,
+				FACA780325FF0D3800DDC233 /* Cube.h */,
+				FACA780425FF0D4F00DDC233 /* Cube.m */,
+			);
+			path = objects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,12 +251,16 @@
 				FA4FE55425F9B00A00452F15 /* DisjointSet.cpp in Sources */,
 				FA4FE52C25F96EBC00452F15 /* GLESRenderer.cpp in Sources */,
 				FA4FE55525F9B00A00452F15 /* maze.cpp in Sources */,
-				FA4FE51225F96E3E00452F15 /* ViewController.m in Sources */,
+				FA4FE51225F96E3E00452F15 /* ViewController.mm in Sources */,
 				FA4FE53425F9708E00452F15 /* Transformations.m in Sources */,
 				FA4FE50C25F96E3E00452F15 /* AppDelegate.m in Sources */,
+				FACA781B25FF1CCC00DDC233 /* Player.mm in Sources */,
 				FA4FE51D25F96E3E00452F15 /* main.m in Sources */,
+				FACA781525FF1C7D00DDC233 /* GameManager.mm in Sources */,
 				FA4FE54D25F9A62F00452F15 /* Renderer.mm in Sources */,
 				FA4FE50F25F96E3E00452F15 /* SceneDelegate.m in Sources */,
+				FACA781C25FF1CCC00DDC233 /* Platform.mm in Sources */,
+				FACA781425FF1C7D00DDC233 /* ObjectTracker.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

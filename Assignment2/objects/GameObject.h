@@ -16,15 +16,18 @@
 
 @interface GameObject : NSObject
 @property(readonly) int _id;
-@property(readonly) GLuint programObject;
 @property(readonly) GLKMatrix4 modelViewMatrix;
 @property(readonly) GLKMatrix3 normalMatrix;
-@property(readonly) float *vertices;
-@property(readonly) float *normals;
-@property(readonly) float *texCoords;
-@property(readonly) int *indices;
-@property(readonly) int numIndices;
+
+// VAO and index buffer
+@property(readonly) GLuint vertexArray;
+@property(readonly) GLuint indexBuffer;
+@property(readonly) GLuint numIndices;
+
+// shaders
 @property(readonly) GLint *uniforms;
+@property(readonly) GLuint programObject;
+
 
 - (bool)setupVertShader:(NSString *) vShaderName AndFragShader:(NSString *) fShaderName;
 - (void)loadModels:(NSString *)modelName;
