@@ -54,9 +54,9 @@
     scaleEnd = s * scaleStart;
 }
 
-- (void)translate:(GLKVector2)t withMultiplier:(float)m
+- (void)translate:(GLKVector3)t withMultiplier:(float)m
 {
-    t = GLKVector2MultiplyScalar(t, m);
+    t = GLKVector3MultiplyScalar(t, m);
         
     float dx = translateEnd.x + (t.x-translateStart.x);
     // reverse direction cause in Swift, downward is positive but in OpenGL, upward
@@ -67,12 +67,13 @@
     translateStart = GLKVector3Make(t.x, t.y, 0.0f);
 }
 
-- (void)translateBy:(GLKVector2)t {
+- (void)translateBy:(GLKVector3)t {
         
     float dx = translateEnd.x + t.x;
     float dy = translateEnd.y + t.y;
+    float dz = translateEnd.z + t.z;
     
-    translateEnd = GLKVector3Make(dx, dy, 0.0f);
+    translateEnd = GLKVector3Make(dx, dy, dz);
 
 }
 

@@ -36,18 +36,23 @@
 - (IBAction)move:(UIPanGestureRecognizer *)sender {
     if (sender.numberOfTouches == 1) {
         CGPoint velocity = [sender velocityInView:self.view];
-        // Y-up is negative, Y-down is positive
         NSLog(@"Velocity %.1f, %.1f", velocity.x, velocity.y);
+
+        // Y-up is negative, Y-down is positive
+        float x = 0.0f, y = 0.0f, z = 0.0f;
+        
         if (velocity.x > 0) { // right
-            
+            x = 0.05f;
         } else if (velocity.x < 0) { // left
-            
+            x = -0.05f;
         }
         if (velocity.y < 0) { // up
-            
+            y = 0.05f;
         } else if (velocity.y > 0) { // down
-            
+            y = -0.05f;
         }
+        [playerTransformations translateBy:GLKVector3Make(x, y, z)];
+
     }
 }
 

@@ -16,8 +16,8 @@
 - (void)start;
 - (void)scale:(float)s;
 
-- (void)translate:(GLKVector2)t withMultiplier:(float)m;
-- (void)translateBy:(GLKVector2)t; // to translate cube in certain direction
+- (void)translate:(GLKVector3)t withMultiplier:(float)m;
+- (void)translateBy:(GLKVector3)t; // to translate cube in certain direction
 
 
 - (void)rotate:(float)rotation withMultiplier:(float)m;
