@@ -58,29 +58,29 @@ void Maze::Create()
 		int randRow = rand() % rows;
 		int randCol = rand() % cols;
 		int wall = rand() % 4;
-		int s1 = 0, s2 = 0;
+		int cell1 = 0, cell2 = 0;
 
 		switch (wall) {
 		case dirNORTH:
 			if (randRow > 0) { // not top of maze
-				s1 = mazeSet->Find(cols * randRow + randCol);
-				s2 = mazeSet->Find(cols * (randRow-1) + randCol);
-				if (s1 != s2) {
+				cell1 = mazeSet->Find(cols * randRow + randCol);
+				cell2 = mazeSet->Find(cols * (randRow-1) + randCol);
+				if (cell1 != cell2) {
 					maze[randRow][randCol].northWallPresent = false;
 					maze[randRow-1][randCol].southWallPresent = false;
-					mazeSet->UnionSets(s1, s2);
+					mazeSet->UnionSets(cell1, cell2);
 				}
 			}
 			break;
 
 		case dirSOUTH:
 			if (randRow < (rows-1)) { // not bottom of maze
-				s1 = mazeSet->Find(cols * randRow + randCol);
-				s2 = mazeSet->Find(cols * (randRow+1) + randCol);
-				if (s1 != s2) {
+				cell1 = mazeSet->Find(cols * randRow + randCol);
+				cell2 = mazeSet->Find(cols * (randRow+1) + randCol);
+				if (cell1 != cell2) {
 					maze[randRow][randCol].southWallPresent = false;
 					maze[randRow+1][randCol].northWallPresent = false;
-					mazeSet->UnionSets(s1, s2);
+					mazeSet->UnionSets(cell1, cell2);
 				}
 
 			}
@@ -88,12 +88,12 @@ void Maze::Create()
 
 		case dirEAST:
 			if (randCol < (cols-1)) { // not right of maze
-				s1 = mazeSet->Find(cols * randRow + randCol);
-				s2 = mazeSet->Find(cols * randRow + randCol+1);
-				if (s1 != s2) {
+				cell1 = mazeSet->Find(cols * randRow + randCol);
+				cell2 = mazeSet->Find(cols * randRow + randCol+1);
+				if (cell1 != cell2) {
 					maze[randRow][randCol].eastWallPresent = false;
 					maze[randRow][randCol+1].westWallPresent = false;
-					mazeSet->UnionSets(s1, s2);
+					mazeSet->UnionSets(cell1, cell2);
 				}
 
 			}
@@ -101,12 +101,12 @@ void Maze::Create()
 
 		case dirWEST:
 			if (randCol > 0) { // not left of maze
-				s1 = mazeSet->Find(cols * randRow + randCol);
-				s2 = mazeSet->Find(cols * randRow + randCol-1);
-				if (s1 != s2) {
+				cell1 = mazeSet->Find(cols * randRow + randCol);
+				cell2 = mazeSet->Find(cols * randRow + randCol-1);
+				if (cell1 != cell2) {
 					maze[randRow][randCol].westWallPresent = false;
 					maze[randRow][randCol-1].eastWallPresent = false;
-					mazeSet->UnionSets(s1, s2);
+					mazeSet->UnionSets(cell1, cell2);
 				}
 
 			}

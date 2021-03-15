@@ -80,21 +80,19 @@
 {
     
     [tracker.player loadTransformation:transformations];
-    [tracker.cube loadTransformation:transformations];
+    [tracker.cube update];
     /*
     for (GameObject *platform in tracker.platforms)
     {
         [platform loadTransformation:transformations];
     }
-     */
-    
-    
+     */    
 }
 
 - (void) draw
 {
     [renderer clear];
-    //[renderer draw:tracker.player];
+    [renderer draw:tracker.player];
     [renderer draw:tracker.cube];
     /*
     for (Platform *platform in tracker.platforms)

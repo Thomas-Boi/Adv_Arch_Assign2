@@ -56,6 +56,8 @@ enum
 
 
 // methods
+// get the model info from GLESRenderer then bind it to the vertexArray
+// property
 - (void)loadModels:(NSString *)modelName
 {
     // Create VAOs
@@ -173,6 +175,7 @@ enum
     return texName;
 }
 
+// load the transformation for the GameObject
 - (void)loadTransformation:(GLKMatrix4) transformation
 {
     modelViewMatrix = transformation;
@@ -180,7 +183,25 @@ enum
     
 }
 
+
 // lifecycle
+// update the object every draw cycle
+// this should be implemented by the child classes
+- (void)update
+{
+    
+}
+
+// update the object every draw cycle.
+// Also set its new transformation
+// this should be implemented by the child classes
+- (void)updateWithTransformation:(GLKMatrix4) transformation
+{
+    [self loadTransformation:transformation];
+}
+
+
+// deallocate the object
 - (void)dealloc
 {
     glDeleteProgram(programObject);
