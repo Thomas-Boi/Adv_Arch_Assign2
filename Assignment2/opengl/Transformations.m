@@ -14,8 +14,8 @@
     float scaleStart;
     float scaleEnd;
     
-    GLKVector2 translateStart;
-    GLKVector2 translateEnd;
+    GLKVector3 translateStart;
+    GLKVector3 translateEnd;
     
     float rotationStart;
     GLKQuaternion rotationEnd;
@@ -26,11 +26,10 @@
 
 @implementation Transformations
 
-- (id)initWithDepth:(float)z Scale:(float)s Translation:(GLKVector2)t Rotation:(float)r RotationAxis:(GLKVector3)rotAxis
+- (id)initWithScale:(float)s Translation:(GLKVector3)t Rotation:(float)r RotationAxis:(GLKVector3)rotAxis
 {
     if (self = [super init])
     {
-        depth = z;
         scaleEnd = s;
         translateEnd = t;
         rotationAxis = rotAxis;
@@ -46,7 +45,7 @@
 - (void)start
 {
     scaleStart = scaleEnd;
-    translateStart = GLKVector2Make(0.0f, 0.0f);
+    translateStart = GLKVector3Make(0.0f, 0.0f , 0.0f);
     rotationStart = 0.0f;
 }
 
@@ -64,8 +63,8 @@
     // is positive
     float dy = translateEnd.y - (t.y-translateStart.y);
         
-    translateEnd = GLKVector2Make(dx, dy);
-    translateStart = GLKVector2Make(t.x, t.y);
+    translateEnd = GLKVector3Make(dx, dy, 0.0f);
+    translateStart = GLKVector3Make(t.x, t.y, 0.0f);
 }
 
 - (void)translateBy:(GLKVector2)t {
@@ -73,7 +72,7 @@
     float dx = translateEnd.x + t.x;
     float dy = translateEnd.y + t.y;
     
-    translateEnd = GLKVector2Make(dx, dy);
+    translateEnd = GLKVector3Make(dx, dy, 0.0f);
 
 }
 
@@ -86,6 +85,10 @@
     rotationEnd = GLKQuaternionMultiply(rotQuat, rotationEnd);
 }
 
+- (void)rotateBy:(GLKVector3)r {
+    
+}
+
 - (void)reset
 {
     
@@ -96,7 +99,7 @@
     GLKMatrix4 modelViewMatrix = GLKMatrix4Identity;
     GLKMatrix4 quaternionMatrix = GLKMatrix4MakeWithQuaternion(rotationEnd);
     
-    modelViewMatrix = GLKMatrix4Translate(modelViewMatrix, translateEnd.x, translateEnd.y, -depth);
+    modelViewMatrix = GLKMatrix4Translate(modelViewMatrix, translateEnd.x, translateEnd.y, translateEnd.z);
     modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, quaternionMatrix);
     modelViewMatrix = GLKMatrix4Scale(modelViewMatrix, scaleEnd, scaleEnd, scaleEnd);
     return modelViewMatrix;
