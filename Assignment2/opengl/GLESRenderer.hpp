@@ -13,6 +13,7 @@
 
 // define a class (job of a header file)
 // note that this does
+// do low level file handling and program stuff
 class GLESRenderer
 {
 public:

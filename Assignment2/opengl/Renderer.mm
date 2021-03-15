@@ -114,7 +114,7 @@ enum
     lastTime = std::chrono::steady_clock::now();
     
     // Calculate projection matrix
-    float aspect = fabsf(theView.bounds.size.width / theView.bounds.size.height);
+    float aspect = fabsf((float)(theView.bounds.size.width / theView.bounds.size.height));
     projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
     
 }
@@ -165,7 +165,7 @@ enum
     glBindVertexArray(_vertexArray);
 
     // Create VBOs
-    glGenBuffers(NUM_ATTRIBUTES, _vertexBuffers);   // One buffer for each attribute
+    glGenBuffers(NUM_ATTRIBUTES, _vertexBuffers);   // One buffer for each attribute (position, tex, normal). See the uniforms at the top
     glGenBuffers(1, &_indexBuffer);                 // Index buffer
 
     // Generate vertex attribute values from model
@@ -243,34 +243,6 @@ enum
 }
 
 //=======================
-// Clean up code before deallocating renderer object
-//=======================
-- (void)dealloc
-{
-    // Delete GL buffers
-    glDeleteBuffers(3, _vertexBuffers);
-    glDeleteBuffers(1, &_indexBuffer);
-    glDeleteVertexArrays(1, &_vertexArray);
-     
-     // Delete vertices buffers
-     if (vertices)
-         free(vertices);
-     if (indices)
-         free(indices);
-     if (normals)
-         free(normals);
-     if (texCoords)
-         free(texCoords);
-     
-     // Delete shader program
-     if (_program) {
-         glDeleteProgram(_program);
-         _program = 0;
-     }
-}
-
-
-//=======================
 // Update each frame
 //=======================
 - (void)update:(GLKMatrix4) modelViewTransform
@@ -288,8 +260,6 @@ enum
     
     // Calculate normal matrix
     _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), NULL);
-    
-
 
     // Calculate model-view-projection matrix
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, _modelViewMatrix);
@@ -320,5 +290,31 @@ enum
 }
 
 
+//=======================
+// Clean up code before deallocating renderer object
+//=======================
+- (void)dealloc
+{
+    // Delete GL buffers
+    glDeleteBuffers(3, _vertexBuffers);
+    glDeleteBuffers(1, &_indexBuffer);
+    glDeleteVertexArrays(1, &_vertexArray);
+     
+     // Delete vertices buffers
+     if (vertices)
+         free(vertices);
+     if (indices)
+         free(indices);
+     if (normals)
+         free(normals);
+     if (texCoords)
+         free(texCoords);
+     
+     // Delete shader program
+     if (_program) {
+         glDeleteProgram(_program);
+         _program = 0;
+     }
+}
 @end
 
