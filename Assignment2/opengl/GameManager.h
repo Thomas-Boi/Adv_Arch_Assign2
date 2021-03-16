@@ -12,10 +12,10 @@
 #import "GameObject.h"
 #import "Player.h"
 #import "Cube.h"
-#import "Platform.h"
 #import "Renderer.h"
 #import "ObjectTracker.h"
 #import "Transformations.h"
+#import "MazeManager.h"
 
 @interface GameManager : NSObject
 
