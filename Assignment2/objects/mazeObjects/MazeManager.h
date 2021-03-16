@@ -16,6 +16,7 @@
 @interface MazeManager : NSObject
 
 @property(readonly) NSMutableArray *walls2D;
+@property(readonly) NSMutableArray *walls3D;
 
 - (void) createMazeWithRows:(int)rows Columns:(int)cols;
 @end
