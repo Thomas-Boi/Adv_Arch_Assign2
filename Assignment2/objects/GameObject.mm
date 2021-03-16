@@ -99,15 +99,6 @@ enum
     
     // Reset VAO
     glBindVertexArray(0);
-    
-    // Load texture to apply and set up texture in GL
-    crateTexture = [self setupTexture:@"crate.jpg"];
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, crateTexture);
-    // uniforms[UNIFORM_TEXTURE] will store the sampler2D
-    // 0 is the number of texture.
-    glUniform1i(_uniforms[UNIFORM_TEXTURE], 0);
-    
 }
 
 // attach the shaders to the program object
@@ -142,7 +133,18 @@ enum
     return true;
 }
 
-
+// bind the texture file to the object
+- (void)loadTexture:(NSString *)textureFileName
+{
+    // Load texture to apply and set up texture in GL
+    crateTexture = [self setupTexture:textureFileName];
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, crateTexture);
+    // uniforms[UNIFORM_TEXTURE] will store the sampler2D
+    // 0 is the number of texture.
+    glUniform1i(_uniforms[UNIFORM_TEXTURE], 0);
+}
+                    
 // Load in and set up texture image (adapted from Ray Wenderlich)
 - (GLuint)setupTexture:(NSString *)fileName
 {

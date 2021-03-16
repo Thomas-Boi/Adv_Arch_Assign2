@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 
-#include "DisjointSet.h"
+#include "DisjointSet.hpp"
 
 DisjointSet::DisjointSet(int setSize)
 {

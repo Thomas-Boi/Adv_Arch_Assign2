@@ -28,10 +28,13 @@
 @property(readonly) GLint *uniforms;
 @property(readonly) GLuint programObject;
 
-
+// creating the objects 
 - (bool)setupVertShader:(NSString *) vShaderName AndFragShader:(NSString *) fShaderName;
 - (void)loadModels:(NSString *)modelName;
 - (void)loadTransformation:(GLKMatrix4) transformation;
+- (void)loadTexture:(NSString *)textureFileName;
+
+// lifecyces
 - (void)update;
 - (void)updateWithTransformation:(GLKMatrix4) transformation;
 

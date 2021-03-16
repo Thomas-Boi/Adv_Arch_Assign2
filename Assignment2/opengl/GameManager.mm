@@ -12,6 +12,7 @@
 {
     Renderer *renderer;
     ObjectTracker *tracker;
+    MazeManager *mazeManager;
 }
 
 @end
@@ -23,6 +24,9 @@
     renderer = [[Renderer alloc] init];
     [renderer setup:view];
     tracker = [[ObjectTracker alloc] init];
+    
+    mazeManager = [[MazeManager alloc] init];
+    [mazeManager createMazeWithRows:4 Columns:4];
     [self loadObjects:transform];
 }
 
@@ -32,27 +36,29 @@
     @autoreleasepool {
         // note: all models use the cube. The param is for future use
         // test data for putting object on the screen
-        Player *player = (Player *)[self createGameObject:@"playerModel" VertShader:@"Shader.vsh" FragShader:@"Shader.fsh" Transformation:initialPlayerTransform];
-        [tracker addPlayer:player];
+        [self createPlayer:@"playerModel" VertShader:@"RedShader.vsh" FragShader:@"RedShader.fsh" Transformation:initialPlayerTransform];
         
         GLKMatrix4 cubeTransform = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(5.0, -1.0, -5.0) Rotation:0.0 RotationAxis:GLKVector3Make(1.0, 0.0, 0.0) Scale:GLKVector3Make(1.0, 1.0, 1.0)];
-        Cube *cube = [self createCube:@"playerModel" VertShader:@"Shader.vsh" FragShader:@"Shader.fsh" Transformation:cubeTransform];
+        Cube *cube = [self createCube:@"playerModel" VertShader:@"CrateShader.vsh" FragShader:@"CrateShader.fsh" Transformation:cubeTransform];
         [cube initRotation];
         [tracker addCube:cube];
         
+        for (Wall2D *wall in mazeManager.walls2D) {
+            [tracker addObject: wall];
+        }
     }
 }
 
 // create a game object here. Need the model, shaders, and its
 // initial transformation (position, rotation, scale)
-- (GameObject *) createGameObject:(NSString *) modelName VertShader:(NSString *) vShaderName FragShader:(NSString *) fShaderName Transformation:(GLKMatrix4) transformations
+- (void) createPlayer:(NSString *) modelName VertShader:(NSString *) vShaderName FragShader:(NSString *) fShaderName Transformation:(GLKMatrix4) transformations
 {
     @autoreleasepool {
-        GameObject *obj = [[GameObject alloc] init];
-        [obj setupVertShader:vShaderName AndFragShader:fShaderName];
-        [obj loadModels:modelName];
-        [obj loadTransformation:transformations];
-        return obj;
+        Player *player = [[Player alloc] init];
+        [player setupVertShader:vShaderName AndFragShader:fShaderName];
+        [player loadModels:modelName];
+        [player loadTransformation:transformations];
+        [tracker addPlayer:player];
     }
 }
 
@@ -61,10 +67,11 @@
 - (Cube *) createCube:(NSString *) modelName VertShader:(NSString *) vShaderName FragShader:(NSString *) fShaderName Transformation:(GLKMatrix4) transformations
 {
     @autoreleasepool {
-        GameObject *obj = [[Cube alloc] init];
+        Cube *obj = [[Cube alloc] init];
         [obj setupVertShader:vShaderName AndFragShader:fShaderName];
         [obj loadModels:modelName];
         [obj loadTransformation:transformations];
+        [obj loadTexture:@"crate.jpg"];
         return obj;
     }
 }
@@ -92,14 +99,14 @@
 - (void) draw
 {
     [renderer clear];
-    [renderer draw:tracker.player];
-    [renderer draw:tracker.cube];
-    /*
-    for (Platform *platform in tracker.platforms)
+    //[renderer draw:tracker.player];
+    //[renderer draw:tracker.cube];
+    
+    for (GameObject *obj in tracker.objects)
     {
-        [renderer draw:platform];
+        [renderer draw:obj];
     }
-     */
+    
 }
 
 @end

@@ -11,7 +11,7 @@
 {
     Player *_player;
     Cube *_cube;
-    NSMutableArray *_platforms;
+    NSMutableArray *_objects;
 }
 
 @end
@@ -22,9 +22,18 @@
 @synthesize player=_player;
 @synthesize cube=_cube;
 
-- (NSMutableArray *) platforms
+- (NSMutableArray *) objects
 {
-    return _platforms;
+    return _objects;
+}
+
+- (id) init
+{
+    if ([super init])
+    {
+        _objects = [[NSMutableArray alloc] init];
+    }
+    return self;
 }
 
 - (void) addPlayer: (Player *) player
@@ -37,9 +46,9 @@
     _cube = cube;
 }
 
-- (void) addPlatform: (Platform *) platform
+- (void) addObject: (GameObject *) obj
 {
-    [_platforms addObject:platform];
+    [_objects addObject:obj];
 }
 
 // check and see if we need to delete
