@@ -52,6 +52,7 @@
         [obj setupVertShader:vShaderName AndFragShader:fShaderName];
         [obj loadModels:modelName];
         [obj loadTransformation:transformations];
+        [obj loadTexture:@"crate.jpg"];
         return obj;
     }
 }
@@ -61,10 +62,11 @@
 - (Cube *) createCube:(NSString *) modelName VertShader:(NSString *) vShaderName FragShader:(NSString *) fShaderName Transformation:(GLKMatrix4) transformations
 {
     @autoreleasepool {
-        GameObject *obj = [[Cube alloc] init];
+        Cube *obj = [[Cube alloc] init];
         [obj setupVertShader:vShaderName AndFragShader:fShaderName];
         [obj loadModels:modelName];
         [obj loadTransformation:transformations];
+        [obj loadTexture:@"crate.jpg"];
         return obj;
     }
 }

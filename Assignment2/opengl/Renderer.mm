@@ -23,40 +23,12 @@
     // iOS hooks
     GLKView *theView;
 
-    
-    // GL ES variables
-    GLESRenderer glesRenderer;
-    GLuint _program;
-    GLuint crateTexture;
-    
-    // GLES buffer
-    GLuint _vertexArray;
-    GLuint _vertexBuffers[3];
-    GLuint _indexBuffer;
-
-    // Transformation matrices
-    GLKMatrix4 _modelViewProjectionMatrix;
-    GLKMatrix3 _normalMatrix;
-    GLKMatrix4 _modelViewMatrix;
     GLKMatrix4 projectionMatrix;
-    
     // Lighting parameters
     // ### Add lighting parameter variables here...
-
-    
-    // Model
-    float *vertices, *normals, *texCoords;
-    GLuint *indices, numIndices;
-
-    
-    // Misc UI variables
-    std::chrono::time_point<std::chrono::steady_clock> lastTime;
-    float rotAngle;
 }
 
 @end
-
-
 
 //===========================================================================
 //  Class implementation
@@ -78,43 +50,15 @@
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     theView = view;
     [EAGLContext setCurrentContext:view.context];
-        
-    // Initialize UI element variables
-    rotAngle = 0.0f;
 
     // Initialize GL color and other parameters
     glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
     glEnable(GL_DEPTH_TEST);
-    lastTime = std::chrono::steady_clock::now();
     
     // Calculate projection matrix
     float aspect = fabsf((float)(theView.bounds.size.width / theView.bounds.size.height));
     projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
     
-}
-
-
-//=======================
-// Update each frame
-//=======================
-- (void)update:(GLKMatrix4) modelViewTransform
-{
-    // Calculate elapsed time
-    auto currentTime = std::chrono::steady_clock::now();
-    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
-    lastTime = currentTime;
-
-    rotAngle += 0.001f * elapsedTime;
-    if (rotAngle >= 360.0f)
-        rotAngle = 0.0f;
-    
-    _modelViewMatrix = GLKMatrix4Rotate(modelViewTransform, rotAngle, 0.0f, 1.0f, 0.0f);
-    
-    // Calculate normal matrix
-    _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), NULL);
-
-    // Calculate model-view-projection matrix
-    _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, _modelViewMatrix);
 }
 
 - (void)clear
@@ -147,32 +91,5 @@
     
 }
 
-
-//=======================
-// Clean up code before deallocating renderer object
-//=======================
-- (void)dealloc
-{
-    // Delete GL buffers
-    glDeleteBuffers(3, _vertexBuffers);
-    glDeleteBuffers(1, &_indexBuffer);
-    glDeleteVertexArrays(1, &_vertexArray);
-     
-     // Delete vertices buffers
-     if (vertices)
-         free(vertices);
-     if (indices)
-         free(indices);
-     if (normals)
-         free(normals);
-     if (texCoords)
-         free(texCoords);
-     
-     // Delete shader program
-     if (_program) {
-         glDeleteProgram(_program);
-         _program = 0;
-     }
-}
 @end
 

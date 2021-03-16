@@ -1,0 +1,24 @@
+//
+//  MazeManager.h
+//  Assignment2
+//
+//  Created by socas on 2021-03-15.
+//
+
+#ifndef MazeManager_h
+#define MazeManager_h
+
+#import "maze.hpp"
+#import "Wall2D.h"
+#import "Transformations.h"
+#import <Foundation/Foundation.h>
+
+@interface MazeManager : NSObject
+
+@property(readonly) int rowCount;
+@property(readonly) int colCount;
+
+- (void) createMazeWithRows:(int)rows Columns:(int)cols;
+@end
+
+#endif /* MazeManager_h */

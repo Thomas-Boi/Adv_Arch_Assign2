@@ -4,7 +4,7 @@
 //	Generates and accesses a 2D maze.
 //  Represents the maze as a 2D array of cells.
 //  Each cell contains flags to indicate which walls exist.
-//  The algorithm for the maze construction uses disjoint sets.
+//  The algorithm for the maze construction *uses disjoint sets.
 //
 // (c) 2010-2015 Borna Noureddin
 //      British Columbia Institute of Technology
@@ -17,7 +17,7 @@
 #ifndef __MAZE_H__
 #define __MAZE_H__
 
-#include "DisjointSet.h"
+#include "DisjointSet.hpp"
 
 struct MazeCell
 {

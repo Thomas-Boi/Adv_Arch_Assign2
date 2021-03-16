@@ -9,8 +9,7 @@
 
 @interface Renderer : NSObject
 
-- (void)setup:(GLKView *)view;   
-- (void)update:(GLKMatrix4) modelViewTransform;       // Update GL
+- (void)setup:(GLKView *)view;  
 - (void)clear;
 - (void)draw:(GameObject *) obj;
 
