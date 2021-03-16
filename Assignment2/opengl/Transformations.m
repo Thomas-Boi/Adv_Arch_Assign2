@@ -8,14 +8,15 @@
 #import "Transformations.h"
 
 @interface Transformations ()
-{
-    float depth;
-    
+{    
     float scaleStart;
     float scaleEnd;
     
     GLKVector3 translateStart;
     GLKVector3 translateEnd;
+    
+    GLKVector3 originalTranslation;
+    GLKQuaternion originalRotation;
     
     float rotationStart;
     GLKQuaternion rotationEnd;
@@ -38,6 +39,10 @@
         rotationEnd = GLKQuaternionIdentity;
         GLKQuaternion rotQuat = GLKQuaternionMakeWithAngleAndVector3Axis(-r, rotationAxis);
         rotationEnd = GLKQuaternionMultiply(rotQuat, rotationEnd);
+        
+        // save initial translation and rotation
+        originalTranslation = translateEnd;
+        originalRotation = rotationEnd;
     }
     return self;
 }
@@ -74,7 +79,6 @@
     float dz = translateEnd.z + t.z;
     
     translateEnd = GLKVector3Make(dx, dy, dz);
-
 }
 
 - (void)rotate:(float)rotation withMultiplier:(float)m
@@ -86,13 +90,14 @@
     rotationEnd = GLKQuaternionMultiply(rotQuat, rotationEnd);
 }
 
-- (void)rotateBy:(GLKVector3)r {
+- (void)rotateBy:(float)r {
     
 }
 
 - (void)reset
 {
-    
+    translateEnd = originalTranslation;
+    rotationEnd = originalRotation;
 }
 
 - (GLKMatrix4)getModelViewMatrix
