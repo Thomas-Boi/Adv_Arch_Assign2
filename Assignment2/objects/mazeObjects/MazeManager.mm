@@ -109,7 +109,7 @@
 - (void) makeWall2D: (GLKMatrix4) transform
 {
     @autoreleasepool {
-        Wall2D *obj = [[Wall2D alloc] init];
+        GameObject *obj = [[GameObject alloc] init];
         [obj setupVertShader:@"RedShader.vsh" AndFragShader:@"RedShader.fsh"];
         [obj loadModels:@"Cube"];
         [obj loadTransformation:transform];

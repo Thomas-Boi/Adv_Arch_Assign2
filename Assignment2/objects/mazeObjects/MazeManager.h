@@ -9,7 +9,7 @@
 #define MazeManager_h
 
 #import "maze.hpp"
-#import "Wall2D.h"
+#import "GameObject.h"
 #import "Transformations.h"
 #import <Foundation/Foundation.h>
 
