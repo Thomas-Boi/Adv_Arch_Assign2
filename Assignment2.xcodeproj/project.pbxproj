@@ -15,15 +15,15 @@
 		FA4FE51A25F96E3E00452F15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA4FE51825F96E3E00452F15 /* LaunchScreen.storyboard */; };
 		FA4FE51D25F96E3E00452F15 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE51C25F96E3E00452F15 /* main.m */; };
 		FA4FE52C25F96EBC00452F15 /* GLESRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE52825F96EBC00452F15 /* GLESRenderer.cpp */; };
-		FA4FE52E25F96EBC00452F15 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA4FE52A25F96EBC00452F15 /* Shader.fsh */; };
-		FA4FE52F25F96EBC00452F15 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA4FE52B25F96EBC00452F15 /* Shader.vsh */; };
+		FA4FE52E25F96EBC00452F15 /* CrateShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA4FE52A25F96EBC00452F15 /* CrateShader.fsh */; };
+		FA4FE52F25F96EBC00452F15 /* CrateShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA4FE52B25F96EBC00452F15 /* CrateShader.vsh */; };
 		FA4FE53425F9708E00452F15 /* Transformations.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE53325F9708E00452F15 /* Transformations.m */; };
 		FA4FE53925F972B600452F15 /* crate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA4FE53825F972B600452F15 /* crate.jpg */; };
 		FA4FE54D25F9A62F00452F15 /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE54C25F9A62F00452F15 /* Renderer.mm */; };
 		FA4FE55425F9B00A00452F15 /* DisjointSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE55025F9B00A00452F15 /* DisjointSet.cpp */; };
 		FA4FE55525F9B00A00452F15 /* maze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE55125F9B00A00452F15 /* maze.cpp */; };
-		FA8AAC1426008C0700A6E0EA /* PlayerShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA8AAC1226008C0700A6E0EA /* PlayerShader.vsh */; };
-		FA8AAC1526008C0700A6E0EA /* PlayerShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA8AAC1326008C0700A6E0EA /* PlayerShader.fsh */; };
+		FA8AAC1426008C0700A6E0EA /* RedShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA8AAC1226008C0700A6E0EA /* RedShader.vsh */; };
+		FA8AAC1526008C0700A6E0EA /* RedShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA8AAC1326008C0700A6E0EA /* RedShader.fsh */; };
 		FACA780525FF0D4F00DDC233 /* Cube.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA780425FF0D4F00DDC233 /* Cube.mm */; };
 		FACA780925FF13C600DDC233 /* GameObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA780725FF13C600DDC233 /* GameObject.mm */; };
 		FACA781425FF1C7D00DDC233 /* ObjectTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA781025FF1C7D00DDC233 /* ObjectTracker.mm */; };
@@ -48,8 +48,8 @@
 		FA4FE51C25F96E3E00452F15 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FA4FE52725F96EBC00452F15 /* GLESRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLESRenderer.hpp; sourceTree = "<group>"; };
 		FA4FE52825F96EBC00452F15 /* GLESRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLESRenderer.cpp; sourceTree = "<group>"; };
-		FA4FE52A25F96EBC00452F15 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
-		FA4FE52B25F96EBC00452F15 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		FA4FE52A25F96EBC00452F15 /* CrateShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = CrateShader.fsh; sourceTree = "<group>"; };
+		FA4FE52B25F96EBC00452F15 /* CrateShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = CrateShader.vsh; sourceTree = "<group>"; };
 		FA4FE53325F9708E00452F15 /* Transformations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transformations.m; sourceTree = "<group>"; };
 		FA4FE53625F9709800452F15 /* Transformations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Transformations.h; sourceTree = "<group>"; };
 		FA4FE53825F972B600452F15 /* crate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = crate.jpg; sourceTree = "<group>"; };
@@ -59,8 +59,8 @@
 		FA4FE55125F9B00A00452F15 /* maze.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = maze.cpp; sourceTree = "<group>"; };
 		FA4FE55225F9B00A00452F15 /* DisjointSet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DisjointSet.hpp; sourceTree = "<group>"; };
 		FA4FE55325F9B00A00452F15 /* maze.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = maze.hpp; sourceTree = "<group>"; };
-		FA8AAC1226008C0700A6E0EA /* PlayerShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = PlayerShader.vsh; sourceTree = "<group>"; };
-		FA8AAC1326008C0700A6E0EA /* PlayerShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = PlayerShader.fsh; sourceTree = "<group>"; };
+		FA8AAC1226008C0700A6E0EA /* RedShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = RedShader.vsh; sourceTree = "<group>"; };
+		FA8AAC1326008C0700A6E0EA /* RedShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = RedShader.fsh; sourceTree = "<group>"; };
 		FACA780325FF0D3800DDC233 /* Cube.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cube.h; sourceTree = "<group>"; };
 		FACA780425FF0D4F00DDC233 /* Cube.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Cube.mm; sourceTree = "<group>"; };
 		FACA780725FF13C600DDC233 /* GameObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameObject.mm; sourceTree = "<group>"; };
@@ -149,10 +149,10 @@
 		FACA780D25FF14CC00DDC233 /* shaders */ = {
 			isa = PBXGroup;
 			children = (
-				FA8AAC1326008C0700A6E0EA /* PlayerShader.fsh */,
-				FA8AAC1226008C0700A6E0EA /* PlayerShader.vsh */,
-				FA4FE52A25F96EBC00452F15 /* Shader.fsh */,
-				FA4FE52B25F96EBC00452F15 /* Shader.vsh */,
+				FA8AAC1326008C0700A6E0EA /* RedShader.fsh */,
+				FA8AAC1226008C0700A6E0EA /* RedShader.vsh */,
+				FA4FE52A25F96EBC00452F15 /* CrateShader.fsh */,
+				FA4FE52B25F96EBC00452F15 /* CrateShader.vsh */,
 			);
 			path = shaders;
 			sourceTree = "<group>";
@@ -243,14 +243,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA4FE52E25F96EBC00452F15 /* Shader.fsh in Resources */,
+				FA4FE52E25F96EBC00452F15 /* CrateShader.fsh in Resources */,
 				FA4FE51A25F96E3E00452F15 /* LaunchScreen.storyboard in Resources */,
 				FA4FE51725F96E3E00452F15 /* Assets.xcassets in Resources */,
-				FA8AAC1526008C0700A6E0EA /* PlayerShader.fsh in Resources */,
-				FA8AAC1426008C0700A6E0EA /* PlayerShader.vsh in Resources */,
+				FA8AAC1526008C0700A6E0EA /* RedShader.fsh in Resources */,
+				FA8AAC1426008C0700A6E0EA /* RedShader.vsh in Resources */,
 				FA4FE53925F972B600452F15 /* crate.jpg in Resources */,
 				FA4FE51525F96E3E00452F15 /* Main.storyboard in Resources */,
-				FA4FE52F25F96EBC00452F15 /* Shader.vsh in Resources */,
+				FA4FE52F25F96EBC00452F15 /* CrateShader.vsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

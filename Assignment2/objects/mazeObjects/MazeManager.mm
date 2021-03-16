@@ -35,13 +35,9 @@
 - (void) createWalls2D: (int)rows AndCols: (int)cols
 {
     // maze dimensions
-    int mazeLength = 8;
+    int mazeLength = 4;
     //int mazeWidth = 4;
     int mazeDepth = -5;
-
-    // coordinate of the top left corner of the maze
-    int topLeftY = 4;
-    int topLeftX = -4;
     
     // make square cells
     float cellWidth = (float) mazeLength / rows;
@@ -50,13 +46,18 @@
     // sizes for the 2D wall
     float wallLength = cellWidth;
     float wallWidth = wallLength / 4;
-    NSLog(@"%f", wallWidth);
     float halfWallWidth = wallWidth / 2;
 
     // scale vector
-    GLKVector3 horizontalWallScale = GLKVector3Make(wallLength, wallWidth, 1.0f);
-    GLKVector3 verticalWallScale = GLKVector3Make(wallWidth, wallLength, 1.0f);
+    GLKVector3 horizontalWallScale = GLKVector3Make(wallLength, wallWidth, wallWidth);
+    GLKVector3 verticalWallScale = GLKVector3Make(wallWidth, wallLength, wallWidth);
 
+    
+    // coordinate of the top left corner of the maze
+    int topLeftY = cellWidth * 2;
+    int topLeftX = -cellWidth * 2;
+
+    // coordinate of the center of the top left cell
     int startX = topLeftX + halfCellWidth;
     int startY = topLeftY - halfCellWidth;
     
@@ -109,10 +110,9 @@
 {
     @autoreleasepool {
         Wall2D *obj = [[Wall2D alloc] init];
-        [obj setupVertShader:@"Shader.vsh" AndFragShader:@"Shader.fsh"];
+        [obj setupVertShader:@"RedShader.vsh" AndFragShader:@"RedShader.fsh"];
         [obj loadModels:@"Cube"];
         [obj loadTransformation:transform];
-        [obj loadTexture:@"crate.jpg"];
         
         [_walls2D addObject:obj];
         
