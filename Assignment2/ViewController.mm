@@ -24,7 +24,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *console;
 
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *singleFinTap;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *doubleFinTap;
+
 
 @end
 
@@ -39,26 +41,31 @@
         NSLog(@"Velocity %.1f, %.1f", velocity.x, velocity.y);
 
         // Y-up is negative, Y-down is positive
-        float x = 0.0f, y = 0.0f, z = 0.0f;
+        GLKVector3 mov = GLKVector3Make(0.0f, 0.0f, 0.0f);
         
         if (velocity.x > 0) { // right
-            x = 0.05f;
+            mov.x += 0.05f;
         } else if (velocity.x < 0) { // left
-            x = -0.05f;
+            mov.x += -0.05f;
         }
-        if (velocity.y < 0) { // up
-            y = 0.05f;
-        } else if (velocity.y > 0) { // down
-            y = -0.05f;
+        if (velocity.y > 0) { // up
+            mov.z += 0.05f;
+        } else if (velocity.y < 0) { // down
+            mov.z += -0.05f;
         }
-        [playerTransformations translateBy:GLKVector3Make(x, y, z)];
-
+        
+        [playerTransformations translateBy:mov];
+        
+    }
+}
+- (IBAction)resetPlayerCube:(UITapGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateRecognized) {
+        [playerTransformations reset];
     }
 }
 
-- (IBAction)tap:(UITapGestureRecognizer *)sender {
+- (IBAction)showConsole:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        NSLog(@"Double finger double tap");
         if (!_console.isHidden) {
             _console.hidden = true;
         } else {
@@ -100,6 +107,8 @@
     }
 }
 
+// MARK: View Rendering
+
 - (void)viewDidLoad {
     // in obj-c, this is how you 'call a method'
     // in obj-c, this is called 'send a message'
@@ -125,9 +134,14 @@
     [manager initManager:view initialPlayerTransform:initialPlayerTransformation];
     
         
-    // ### >>>
-    _tapGesture.numberOfTapsRequired = 2;
-    _tapGesture.numberOfTouchesRequired = 2;
+    // Gestures setup
+    // Single finger double tap
+    _singleFinTap.numberOfTapsRequired = 2;
+    _singleFinTap.numberOfTouchesRequired = 1;
+    
+    // Double finger double tap
+    _doubleFinTap.numberOfTapsRequired = 2;
+    _doubleFinTap.numberOfTouchesRequired = 2;
     
     [_console sizeToFit];
     _console.hidden = true;

@@ -79,14 +79,16 @@
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Zqz-JT-jhJ" appends="YES" id="vBf-Tc-N0T"/>
                             <outletCollection property="gestureRecognizers" destination="H4E-k4-ifn" appends="YES" id="Qd6-C2-sN9"/>
+                            <outletCollection property="gestureRecognizers" destination="ijf-Qq-yJe" appends="YES" id="iwp-59-HrS"/>
                         </connections>
                     </view>
                     <connections>
                         <outlet property="console" destination="L9o-mJ-977" id="HI8-My-E3e"/>
+                        <outlet property="doubleFinTap" destination="H4E-k4-ifn" id="rNM-Mu-ScG"/>
                         <outlet property="flashlightBtn" destination="iFK-CW-lAg" id="1SQ-o4-VOD"/>
                         <outlet property="fogBtn" destination="23N-Am-hAf" id="gqD-uO-Eq7"/>
                         <outlet property="lightingBtn" destination="bxQ-Ub-Bkf" id="zEl-Nq-Lhj"/>
-                        <outlet property="tapGesture" destination="H4E-k4-ifn" id="biE-lK-R6j"/>
+                        <outlet property="singleFinTap" destination="ijf-Qq-yJe" id="lKd-Me-Cqx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -95,9 +97,14 @@
                         <action selector="move:" destination="BYZ-38-t0r" id="AGk-qD-3Sk"/>
                     </connections>
                 </panGestureRecognizer>
-                <tapGestureRecognizer id="H4E-k4-ifn">
+                <tapGestureRecognizer id="H4E-k4-ifn" userLabel="DoubleFingerTapGesture">
                     <connections>
-                        <action selector="tap:" destination="BYZ-38-t0r" id="EO3-UW-KfU"/>
+                        <action selector="showConsole:" destination="BYZ-38-t0r" id="dcO-Ol-6Bz"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="ijf-Qq-yJe" userLabel="SingleFingerTapGesture">
+                    <connections>
+                        <action selector="resetPlayerCube:" destination="BYZ-38-t0r" id="FxH-Cd-55x"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

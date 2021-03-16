@@ -17,16 +17,15 @@
 - (void)scale:(float)s;
 
 - (void)translate:(GLKVector3)t withMultiplier:(float)m;
-- (void)translateBy:(GLKVector3)t; // to translate cube in certain direction
-
+- (void)translateBy:(GLKVector3)t;
 
 - (void)rotate:(float)rotation withMultiplier:(float)m;
-- (void)rotateBy:(GLKVector3)r;
+- (void)rotateBy:(float)r;
 
 - (void)reset;
 - (GLKMatrix4)getModelViewMatrix;
-
 + (GLKMatrix4)createModelViewMatrixWithTranslation:(GLKVector3)translation Rotation:(float)rotation RotationAxis:(GLKVector3)rotAxis Scale:(GLKVector3)scale;
+
 @end
 
 #endif /* Transformations_h */
