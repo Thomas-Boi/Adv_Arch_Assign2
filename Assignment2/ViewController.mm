@@ -24,7 +24,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *console;
 
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *singleFinTap;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *doubleFinTap;
+
 
 @end
 
@@ -35,13 +37,35 @@
 
 - (IBAction)move:(UIPanGestureRecognizer *)sender {
     if (sender.numberOfTouches == 1) {
-        NSLog(@"Single finger drag");
+        CGPoint velocity = [sender velocityInView:self.view];
+        NSLog(@"Velocity %.1f, %.1f", velocity.x, velocity.y);
+
+        // Y-up is negative, Y-down is positive
+        GLKVector3 mov = GLKVector3Make(0.0f, 0.0f, 0.0f);
+        
+        if (velocity.x > 0) { // right
+            mov.x += 0.05f;
+        } else if (velocity.x < 0) { // left
+            mov.x += -0.05f;
+        }
+        if (velocity.y > 0) { // up
+            mov.z += 0.05f;
+        } else if (velocity.y < 0) { // down
+            mov.z += -0.05f;
+        }
+        
+        [playerTransformations translateBy:mov];
+        
+    }
+}
+- (IBAction)resetPlayerCube:(UITapGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateRecognized) {
+        [playerTransformations reset];
     }
 }
 
-- (IBAction)tap:(UITapGestureRecognizer *)sender {
+- (IBAction)showConsole:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        NSLog(@"Double finger double tap");
         if (!_console.isHidden) {
             _console.hidden = true;
         } else {
@@ -75,13 +99,15 @@
 - (IBAction)switchLighting:(UIButton *)sender {
     // Daytime should be the default
     if (!lightingState) {
-        [_lightingBtn setTitle:@"Mode: Nightime" forState:UIControlStateNormal];
+        [_lightingBtn setTitle:@"Mode: Night" forState:UIControlStateNormal];
         lightingState = true;
     } else {
-        [_lightingBtn setTitle:@"Mode: Daytime" forState:UIControlStateNormal];
+        [_lightingBtn setTitle:@"Mode: Day" forState:UIControlStateNormal];
         lightingState = false;
     }
 }
+
+// MARK: View Rendering
 
 - (void)viewDidLoad {
     // in obj-c, this is how you 'call a method'
@@ -98,7 +124,7 @@
     glesRenderer = [[Renderer alloc] init];
     GLKView *view = (GLKView *)self.view;
     // Initialize transformations for the player
-    playerTransformations = [[Transformations alloc] initWithDepth:5.0f Scale:1.0f Translation:GLKVector2Make(0.0f, -1.0f) Rotation:0 RotationAxis:GLKVector3Make(0.0, 0.0, 1.0)];
+    playerTransformations = [[Transformations alloc] initWithScale:1.0f Translation:GLKVector3Make(0.0f, -1.0f, -5.0f) Rotation:0 RotationAxis:GLKVector3Make(0.0, 0.0, 1.0)];
     [playerTransformations start];
     
     // set up the opengl window and draw
@@ -108,9 +134,14 @@
     [manager initManager:view initialPlayerTransform:initialPlayerTransformation];
     
         
-    // ### >>>
-    _tapGesture.numberOfTapsRequired = 2;
-    _tapGesture.numberOfTouchesRequired = 2;
+    // Gestures setup
+    // Single finger double tap
+    _singleFinTap.numberOfTapsRequired = 2;
+    _singleFinTap.numberOfTouchesRequired = 1;
+    
+    // Double finger double tap
+    _doubleFinTap.numberOfTapsRequired = 2;
+    _doubleFinTap.numberOfTouchesRequired = 2;
     
     [_console sizeToFit];
     _console.hidden = true;

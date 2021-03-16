@@ -37,9 +37,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxQ-Ub-Bkf" userLabel="ModeBtn">
-                                <rect key="frame" x="692" y="129" width="144" height="39"/>
+                                <rect key="frame" x="733" y="129" width="103" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="Mode: Daytime">
+                                <state key="normal" title="Mode: Day">
                                     <color key="titleColor" systemColor="systemRedColor"/>
                                 </state>
                                 <connections>
@@ -47,7 +47,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Sample text (may need to resize this box later for ascii maze)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9o-mJ-977">
-                                <rect key="frame" x="52" y="20" width="221" height="72"/>
+                                <rect key="frame" x="93" y="20" width="221" height="72"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -79,14 +79,16 @@
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Zqz-JT-jhJ" appends="YES" id="vBf-Tc-N0T"/>
                             <outletCollection property="gestureRecognizers" destination="H4E-k4-ifn" appends="YES" id="Qd6-C2-sN9"/>
+                            <outletCollection property="gestureRecognizers" destination="ijf-Qq-yJe" appends="YES" id="iwp-59-HrS"/>
                         </connections>
                     </view>
                     <connections>
                         <outlet property="console" destination="L9o-mJ-977" id="HI8-My-E3e"/>
+                        <outlet property="doubleFinTap" destination="H4E-k4-ifn" id="rNM-Mu-ScG"/>
                         <outlet property="flashlightBtn" destination="iFK-CW-lAg" id="1SQ-o4-VOD"/>
                         <outlet property="fogBtn" destination="23N-Am-hAf" id="gqD-uO-Eq7"/>
                         <outlet property="lightingBtn" destination="bxQ-Ub-Bkf" id="zEl-Nq-Lhj"/>
-                        <outlet property="tapGesture" destination="H4E-k4-ifn" id="biE-lK-R6j"/>
+                        <outlet property="singleFinTap" destination="ijf-Qq-yJe" id="lKd-Me-Cqx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -95,9 +97,14 @@
                         <action selector="move:" destination="BYZ-38-t0r" id="AGk-qD-3Sk"/>
                     </connections>
                 </panGestureRecognizer>
-                <tapGestureRecognizer id="H4E-k4-ifn">
+                <tapGestureRecognizer id="H4E-k4-ifn" userLabel="DoubleFingerTapGesture">
                     <connections>
-                        <action selector="tap:" destination="BYZ-38-t0r" id="EO3-UW-KfU"/>
+                        <action selector="showConsole:" destination="BYZ-38-t0r" id="dcO-Ol-6Bz"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="ijf-Qq-yJe" userLabel="SingleFingerTapGesture">
+                    <connections>
+                        <action selector="resetPlayerCube:" destination="BYZ-38-t0r" id="FxH-Cd-55x"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
