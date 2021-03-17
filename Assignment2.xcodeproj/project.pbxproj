@@ -27,6 +27,7 @@
 		FA8AAC1526008C0700A6E0EA /* RedShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA8AAC1326008C0700A6E0EA /* RedShader.fsh */; };
 		FA9E38832602699F00CEC9EE /* GreenShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA9E38822602699F00CEC9EE /* GreenShader.fsh */; };
 		FA9E3886260269A900CEC9EE /* GreenShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA9E3885260269A900CEC9EE /* GreenShader.vsh */; };
+		FA9E388C26026EFD00CEC9EE /* CameraTransformations.m in Sources */ = {isa = PBXBuildFile; fileRef = FA9E388B26026EFD00CEC9EE /* CameraTransformations.m */; };
 		FACA780525FF0D4F00DDC233 /* Cube.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA780425FF0D4F00DDC233 /* Cube.mm */; };
 		FACA780925FF13C600DDC233 /* GameObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA780725FF13C600DDC233 /* GameObject.mm */; };
 		FACA781425FF1C7D00DDC233 /* ObjectTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA781025FF1C7D00DDC233 /* ObjectTracker.mm */; };
@@ -66,6 +67,8 @@
 		FA8AAC1326008C0700A6E0EA /* RedShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = RedShader.fsh; sourceTree = "<group>"; };
 		FA9E38822602699F00CEC9EE /* GreenShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GreenShader.fsh; sourceTree = "<group>"; };
 		FA9E3885260269A900CEC9EE /* GreenShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = GreenShader.vsh; sourceTree = "<group>"; };
+		FA9E388B26026EFD00CEC9EE /* CameraTransformations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraTransformations.m; sourceTree = "<group>"; };
+		FA9E388E26026F0500CEC9EE /* CameraTransformations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraTransformations.h; sourceTree = "<group>"; };
 		FACA780325FF0D3800DDC233 /* Cube.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cube.h; sourceTree = "<group>"; };
 		FACA780425FF0D4F00DDC233 /* Cube.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Cube.mm; sourceTree = "<group>"; };
 		FACA780725FF13C600DDC233 /* GameObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameObject.mm; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 				FA4FE54C25F9A62F00452F15 /* Renderer.mm */,
 				FA4FE53625F9709800452F15 /* Transformations.h */,
 				FA4FE53325F9708E00452F15 /* Transformations.m */,
+				FA9E388E26026F0500CEC9EE /* CameraTransformations.h */,
+				FA9E388B26026EFD00CEC9EE /* CameraTransformations.m */,
 				FA4FE52825F96EBC00452F15 /* GLESRenderer.cpp */,
 				FA4FE52725F96EBC00452F15 /* GLESRenderer.hpp */,
 			);
@@ -279,6 +284,7 @@
 				FA4FE55425F9B00A00452F15 /* DisjointSet.cpp in Sources */,
 				FA4FE52C25F96EBC00452F15 /* GLESRenderer.cpp in Sources */,
 				FA4FE55525F9B00A00452F15 /* maze.cpp in Sources */,
+				FA9E388C26026EFD00CEC9EE /* CameraTransformations.m in Sources */,
 				FA4FE51225F96E3E00452F15 /* ViewController.mm in Sources */,
 				FA4FE53425F9708E00452F15 /* Transformations.m in Sources */,
 				FA4FE50C25F96E3E00452F15 /* AppDelegate.m in Sources */,

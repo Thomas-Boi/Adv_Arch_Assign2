@@ -27,8 +27,9 @@
 // shaders
 @property(readonly) GLint *uniforms;
 @property(readonly) GLuint programObject;
+@property(readonly) GLuint texture;
 
-// creating the objects 
+// creating the objects
 - (bool)setupVertShader:(NSString *) vShaderName AndFragShader:(NSString *) fShaderName;
 - (void)loadModels:(NSString *)modelName;
 - (void)loadTransformation:(GLKMatrix4) transformation;

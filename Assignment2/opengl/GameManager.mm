@@ -41,9 +41,9 @@
     @autoreleasepool {
         // note: all models use the cube. The param is for future use
         // test data for putting object on the screen
-        [self createPlayer:@"playerModel" VertShader:@"GreenShader.vsh" FragShader:@"GreenShader.fsh" Transformation:initialPlayerTransform];
+        //[self createPlayer:@"playerModel" VertShader:@"GreenShader.vsh" FragShader:@"GreenShader.fsh" Transformation:initialPlayerTransform];
         
-        GLKMatrix4 cubeTransform = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(0.0, -1.0, -7.0) Rotation:0.0 RotationAxis:GLKVector3Make(1.0, 0.0, 0.0) Scale:GLKVector3Make(1.0, 1.0, 1.0)];
+        GLKMatrix4 cubeTransform = [Transformations createModelMatrixWithTranslation:GLKVector3Make(0.0, -1.0, -7.0) Rotation:0.0 RotationAxis:GLKVector3Make(1.0, 0.0, 0.0) Scale:GLKVector3Make(1.0, 1.0, 1.0)];
         Cube *cube = [self createCube:@"playerModel" VertShader:@"TextureShader.vsh" FragShader:@"TextureShader.fsh" Transformation:cubeTransform];
         [cube initRotation];
         [tracker addCube:cube];
@@ -91,7 +91,7 @@
 - (void) update:(GLKMatrix4) transformations
 {
     
-    [tracker.player loadTransformation:transformations];
+    //[tracker.player loadTransformation:transformations];
     [tracker.cube update];
     /*
     for (GameObject *platform in tracker.platforms)
@@ -111,7 +111,7 @@
         return;
     }
     
-    [renderer draw:tracker.player];
+    //[renderer draw:tracker.player];
     [renderer draw:tracker.cube];
 
     for (GameObject *obj in tracker.objects)

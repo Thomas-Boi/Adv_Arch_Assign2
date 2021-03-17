@@ -12,7 +12,7 @@
     // Renderer is imported in the header file so don't need to reimport here
     Renderer *glesRenderer;
     GameManager *manager;
-    Transformations *transformations;
+    Transformations *cameraTransformations;
     Transformations *playerTransformations;
     bool fogState, flashlightState, lightingState;
     

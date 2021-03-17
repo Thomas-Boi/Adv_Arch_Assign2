@@ -80,7 +80,7 @@
             {
                 float wallX = x;
                 float wallY = y + halfCellWidth - halfWallWidth;
-                GLKMatrix4 transformation = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(wallX, wallY, mazeDepth) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:horizontalWallScale];
+                GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(wallX, wallY, mazeDepth) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:horizontalWallScale];
                 [self makeWall2D: transformation];
             }
             
@@ -88,7 +88,7 @@
             {
                 float wallX = x;
                 float wallY = y - halfCellWidth + halfWallWidth;
-                GLKMatrix4 transformation = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(wallX, wallY, mazeDepth) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:horizontalWallScale];
+                GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(wallX, wallY, mazeDepth) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:horizontalWallScale];
                 [self makeWall2D: transformation];
             }
             
@@ -96,7 +96,7 @@
             {
                 float wallX = x - halfCellWidth + halfWallWidth;
                 float wallY = y;
-                GLKMatrix4 transformation = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(wallX, wallY, mazeDepth) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:verticalWallScale];
+                GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(wallX, wallY, mazeDepth) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:verticalWallScale];
                 [self makeWall2D: transformation];
             }
             
@@ -104,7 +104,7 @@
             {
                 float wallX = x + halfCellWidth - halfWallWidth;
                 float wallY = y;
-                GLKMatrix4 transformation = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(wallX, wallY, mazeDepth) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:verticalWallScale];
+                GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(wallX, wallY, mazeDepth) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:verticalWallScale];
                 [self makeWall2D: transformation];
             }
             
@@ -170,7 +170,7 @@
             {
                 float wallX = x;
                 float wallZ = z - halfCellWidth + halfWallWidth;
-                GLKMatrix4 transformation = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(wallX, wallY, wallZ) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:westToEastWallScale];
+                GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(wallX, wallY, wallZ) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:westToEastWallScale];
                 [self makeWall3D: transformation];
             }
             
@@ -178,7 +178,7 @@
             {
                 float wallX = x;
                 float wallZ = z + halfCellWidth - halfWallWidth;
-                GLKMatrix4 transformation = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(wallX, wallY, wallZ) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:westToEastWallScale];
+                GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(wallX, wallY, wallZ) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:westToEastWallScale];
                 [self makeWall3D: transformation];
             }
             
@@ -186,7 +186,7 @@
             {
                 float wallX = x - halfCellWidth + halfWallWidth;
                 float wallZ = z;
-                GLKMatrix4 transformation = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(wallX, wallY, wallZ) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:northToSouthWallScale];
+                GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(wallX, wallY, wallZ) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:northToSouthWallScale];
                 [self makeWall3D: transformation];
             }
             
@@ -194,7 +194,7 @@
             {
                 float wallX = x + halfCellWidth - halfWallWidth;
                 float wallZ = z;
-                GLKMatrix4 transformation = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(wallX, wallY, wallZ) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:northToSouthWallScale];
+                GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(wallX, wallY, wallZ) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:northToSouthWallScale];
                 [self makeWall3D: transformation];
             }
             
@@ -205,7 +205,7 @@
     // create the floor
     @autoreleasepool {
         float floorLength = mazeLength * 2;
-        GLKMatrix4 transformation = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(0, wallY - wallHeight / 2, -5) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:GLKVector3Make(floorLength, 0.01, floorLength)];
+        GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(0, wallY - wallHeight / 2, -5) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:GLKVector3Make(floorLength, 0.01, floorLength)];
         
         GameObject *obj = [[GameObject alloc] init];
         [obj setupVertShader:@"RedShader.vsh" AndFragShader:@"RedShader.fsh"];

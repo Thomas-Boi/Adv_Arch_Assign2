@@ -23,8 +23,11 @@
 - (void)rotateBy:(float)r;
 
 - (void)reset;
+
 - (GLKMatrix4)getModelViewMatrix;
-+ (GLKMatrix4)createModelViewMatrixWithTranslation:(GLKVector3)translation Rotation:(float)rotation RotationAxis:(GLKVector3)rotAxis Scale:(GLKVector3)scale;
+- (GLKMatrix4)getViewMatrix;
+
++ (GLKMatrix4)createModelMatrixWithTranslation:(GLKVector3)translation Rotation:(float)rotation RotationAxis:(GLKVector3)rotAxis Scale:(GLKVector3)scale;
 
 @end
 
