@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23N-Am-hAf" userLabel="FogButton">
-                                <rect key="frame" x="759" y="40" width="77" height="39"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23N-Am-hAf" userLabel="FogButton">
+                                <rect key="frame" x="703" y="40" width="133" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Fog: Off">
                                     <color key="titleColor" systemColor="systemPinkColor"/>
@@ -26,7 +26,7 @@
                                     <action selector="switchFog:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IGY-0s-vv2"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iFK-CW-lAg" userLabel="FlashlightButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iFK-CW-lAg" userLabel="FlashlightButton">
                                 <rect key="frame" x="703" y="82" width="133" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Flashlight: Off">
@@ -36,8 +36,8 @@
                                     <action selector="switchFlashlight:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xfj-iF-M7G"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxQ-Ub-Bkf" userLabel="ModeBtn">
-                                <rect key="frame" x="733" y="129" width="103" height="39"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxQ-Ub-Bkf" userLabel="ModeBtn">
+                                <rect key="frame" x="703" y="129" width="133" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Mode: Day">
                                     <color key="titleColor" systemColor="systemRedColor"/>
@@ -46,35 +46,21 @@
                                     <action selector="switchLighting:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tPj-Rl-8Vq"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Sample text (may need to resize this box later for ascii maze)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9o-mJ-977">
-                                <rect key="frame" x="93" y="20" width="221" height="72"/>
-                                <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="221" id="4PU-es-yZU"/>
-                                    <constraint firstAttribute="height" priority="500" constant="24" id="f0a-TN-yB0"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" systemColor="systemTealColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="L9o-mJ-977" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1yh-cF-uvG"/>
-                            <constraint firstItem="bxQ-Ub-Bkf" firstAttribute="leading" secondItem="L9o-mJ-977" secondAttribute="trailing" constant="419" id="2kf-Xe-9p8"/>
-                            <constraint firstItem="L9o-mJ-977" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="C2E-mE-G2O"/>
+                            <constraint firstItem="23N-Am-hAf" firstAttribute="leading" secondItem="bxQ-Ub-Bkf" secondAttribute="leading" id="3WN-Od-LH1"/>
+                            <constraint firstItem="23N-Am-hAf" firstAttribute="trailing" secondItem="iFK-CW-lAg" secondAttribute="trailing" id="ADc-YU-k7K"/>
                             <constraint firstItem="bxQ-Ub-Bkf" firstAttribute="top" secondItem="iFK-CW-lAg" secondAttribute="bottom" constant="8" symbolic="YES" id="C4f-ch-k7f"/>
                             <constraint firstItem="iFK-CW-lAg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" symbolic="YES" id="ESb-nb-hdD"/>
-                            <constraint firstItem="23N-Am-hAf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" symbolic="YES" id="N6v-Ax-gxo"/>
+                            <constraint firstItem="23N-Am-hAf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="LgO-aq-YwK"/>
+                            <constraint firstItem="23N-Am-hAf" firstAttribute="leading" secondItem="iFK-CW-lAg" secondAttribute="leading" id="LiL-4d-oPj"/>
+                            <constraint firstItem="iFK-CW-lAg" firstAttribute="top" secondItem="23N-Am-hAf" secondAttribute="bottom" constant="3" id="c2S-GX-8Pn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bxQ-Ub-Bkf" secondAttribute="trailing" constant="16" id="d4n-2D-O6c"/>
-                            <constraint firstItem="iFK-CW-lAg" firstAttribute="top" secondItem="23N-Am-hAf" secondAttribute="bottom" constant="3" id="dWN-s4-Jks"/>
-                            <constraint firstItem="23N-Am-hAf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="fQI-Xv-v4g"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iFK-CW-lAg" secondAttribute="trailing" constant="16" id="fan-lo-qB4"/>
                             <constraint firstItem="bxQ-Ub-Bkf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" symbolic="YES" id="mKz-ct-sln"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="23N-Am-hAf" secondAttribute="trailing" constant="16" id="wj8-Om-oRB"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Zqz-JT-jhJ" appends="YES" id="vBf-Tc-N0T"/>
@@ -83,7 +69,6 @@
                         </connections>
                     </view>
                     <connections>
-                        <outlet property="console" destination="L9o-mJ-977" id="HI8-My-E3e"/>
                         <outlet property="doubleFinTap" destination="H4E-k4-ifn" id="rNM-Mu-ScG"/>
                         <outlet property="flashlightBtn" destination="iFK-CW-lAg" id="1SQ-o4-VOD"/>
                         <outlet property="fogBtn" destination="23N-Am-hAf" id="gqD-uO-Eq7"/>
@@ -115,17 +100,11 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

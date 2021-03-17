@@ -22,8 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *flashlightBtn;
 @property (weak, nonatomic) IBOutlet UIButton *lightingBtn;
 
-@property (weak, nonatomic) IBOutlet UILabel *console;
-
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *singleFinTap;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *doubleFinTap;
 
@@ -38,15 +36,14 @@
 - (IBAction)move:(UIPanGestureRecognizer *)sender {
     if (sender.numberOfTouches == 1) {
         CGPoint velocity = [sender velocityInView:self.view];
-        NSLog(@"Velocity %.1f, %.1f", velocity.x, velocity.y);
 
         // Y-up is negative, Y-down is positive
         GLKVector3 mov = GLKVector3Make(0.0f, 0.0f, 0.0f);
         
         if (velocity.x > 0) { // right
-            mov.x += 0.05f;
+            [playerTransformations rotateBy:-0.02];
         } else if (velocity.x < 0) { // left
-            mov.x += -0.05f;
+            [playerTransformations rotateBy:0.02];
         }
         if (velocity.y > 0) { // up
             mov.z += 0.05f;
@@ -66,11 +63,7 @@
 
 - (IBAction)showConsole:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        if (!_console.isHidden) {
-            _console.hidden = true;
-        } else {
-            _console.hidden = false;
-        }
+        manager.display2DMap = !manager.display2DMap;
     }
 }
 
@@ -124,6 +117,8 @@
     glesRenderer = [[Renderer alloc] init];
     GLKView *view = (GLKView *)self.view;
     // Initialize transformations for the player
+    
+    // -1, -5
     playerTransformations = [[Transformations alloc] initWithScale:1.0f Translation:GLKVector3Make(0.0f, -1.0f, -5.0f) Rotation:0 RotationAxis:GLKVector3Make(0.0, 0.0, 1.0)];
     [playerTransformations start];
     
@@ -142,9 +137,6 @@
     // Double finger double tap
     _doubleFinTap.numberOfTapsRequired = 2;
     _doubleFinTap.numberOfTouchesRequired = 2;
-    
-    [_console sizeToFit];
-    _console.hidden = true;
 }
 
 - (void)update

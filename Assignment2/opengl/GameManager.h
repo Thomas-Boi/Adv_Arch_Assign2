@@ -24,6 +24,8 @@
 - (void) update:(GLKMatrix4) transformations;
 - (void) draw;
 
+@property bool display2DMap;
+
 @end
 
 
