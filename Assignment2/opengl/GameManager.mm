@@ -29,7 +29,7 @@
     tracker = [[ObjectTracker alloc] init];
     
     mazeManager = [[MazeManager alloc] init];
-    [mazeManager createMazeWithRows:4 Columns:4];
+    [mazeManager createMazeWithRows:4 Columns:4 Depth:7];
     [self loadObjects:transform];
     
     display2DMap = false;
@@ -41,10 +41,10 @@
     @autoreleasepool {
         // note: all models use the cube. The param is for future use
         // test data for putting object on the screen
-        [self createPlayer:@"playerModel" VertShader:@"RedShader.vsh" FragShader:@"RedShader.fsh" Transformation:initialPlayerTransform];
+        [self createPlayer:@"playerModel" VertShader:@"GreenShader.vsh" FragShader:@"GreenShader.fsh" Transformation:initialPlayerTransform];
         
-        GLKMatrix4 cubeTransform = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(5.0, -1.0, -5.0) Rotation:0.0 RotationAxis:GLKVector3Make(1.0, 0.0, 0.0) Scale:GLKVector3Make(1.0, 1.0, 1.0)];
-        Cube *cube = [self createCube:@"playerModel" VertShader:@"CrateShader.vsh" FragShader:@"CrateShader.fsh" Transformation:cubeTransform];
+        GLKMatrix4 cubeTransform = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(0.0, -1.0, -7.0) Rotation:0.0 RotationAxis:GLKVector3Make(1.0, 0.0, 0.0) Scale:GLKVector3Make(1.0, 1.0, 1.0)];
+        Cube *cube = [self createCube:@"playerModel" VertShader:@"TextureShader.vsh" FragShader:@"TextureShader.fsh" Transformation:cubeTransform];
         [cube initRotation];
         [tracker addCube:cube];
         

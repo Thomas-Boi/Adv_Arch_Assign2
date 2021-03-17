@@ -27,7 +27,9 @@
     return _walls3D;
 }
 
-- (void) createMazeWithRows:(int)rows Columns:(int)cols
+// create a maze with said rows and columns
+// the depth is the z position of the southern most wall
+- (void) createMazeWithRows:(int)rows Columns:(int)cols Depth:(float)dist
 {
     _walls2D = [[NSMutableArray alloc] init];
     _walls3D = [[NSMutableArray alloc] init];
@@ -35,8 +37,7 @@
     mazeGenerator = new Maze(rows, cols);
     mazeGenerator -> Create();
     [self createWalls2D: rows AndCols:cols];
-    [self createWalls3D: rows AndCols:cols];
-    NSLog(@"%d", _walls3D.count);
+    [self createWallsAndFloor3D: rows AndCols:cols Depth:dist];
 }
 
 // create the 2D walls
@@ -110,6 +111,7 @@
             
         }
     }
+    
 }
 
 // make a 2D wall and add it to the _walls2D array
@@ -126,23 +128,20 @@
     }
 }
 
-
 // create the 3D walls
-- (void) createWalls3D: (int)rows AndCols: (int)cols
+- (void) createWallsAndFloor3D: (int)rows AndCols: (int)cols Depth:(float)depth
 {
     // maze dimensions
-    int mazeLength = 6;  // z
-    //int mazeWidth = 20; // x
-    int mazeHeight = 5; // y
+    int mazeLength = 10;  // z
     
     // make square cells
-    float cellWidth = (float) 1; // mazeLength / rows;
+    float cellWidth = (float) mazeLength / rows;
     float halfCellWidth = cellWidth / 2;
 
     // sizes for the 3D wall
     float wallLength = cellWidth; // long side
     float wallWidth = wallLength / 5; // short side
-    float wallHeight = cellWidth;
+    float wallHeight = cellWidth * 2;
     float halfWallWidth = wallWidth / 2;
 
     // scale vector
@@ -150,13 +149,15 @@
     GLKVector3 northToSouthWallScale = GLKVector3Make(wallWidth, wallHeight, wallLength);
 
     // coordinate of the north west corner of the maze
-    float northWestX = -cellWidth * (float) cols / 2;
-    float northWestZ = -mazeLength;
-
+    float northWestX = -mazeLength + halfCellWidth; // centered the maze
+    float northWestZ = -(mazeLength + depth); // this would make the southern most edge about depth units away from z-axis
+    
     // coordinate of the center of the top left cell
     float startX = northWestX + halfCellWidth;
     float startZ = northWestZ + halfCellWidth;
-    float wallY = 0;
+    
+    // y position for all walls
+    float wallY = 0; // so the feet of the wall is on 0
     
     for (int row = 0; row < rows; row++)
     {
@@ -200,6 +201,20 @@
             
         }
     }
+    
+    // create the floor
+    @autoreleasepool {
+        float floorLength = mazeLength * 2;
+        GLKMatrix4 transformation = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(0, wallY - wallHeight / 2, -5) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:GLKVector3Make(floorLength, 0.01, floorLength)];
+        
+        GameObject *obj = [[GameObject alloc] init];
+        [obj setupVertShader:@"RedShader.vsh" AndFragShader:@"RedShader.fsh"];
+        [obj loadModels:@"Cube"];
+        [obj loadTransformation:transformation];
+        
+        [_walls3D addObject:obj];
+    }
+     
 }
 
 // make a 3D wall and add it to the _walls3D array
@@ -207,11 +222,12 @@
 {
     @autoreleasepool {
         GameObject *obj = [[GameObject alloc] init];
-        [obj setupVertShader:@"RedShader.vsh" AndFragShader:@"RedShader.fsh"];
+        [obj setupVertShader:@"TextureShader.vsh" AndFragShader:@"TextureShader.fsh"];
         [obj loadModels:@"Cube"];
         [obj loadTransformation:transform];
-        
+        [obj loadTexture:@"brick.jpg"];
         [_walls3D addObject:obj];
         
     }
-}@end
+}
+@end
