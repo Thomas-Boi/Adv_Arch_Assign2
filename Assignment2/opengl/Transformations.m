@@ -21,6 +21,11 @@
     float rotationStart;
     GLKQuaternion rotationEnd;
     GLKVector3 rotationAxis;
+    
+    /*-----------------------*/
+    GLKMatrix4 modelViewMatrix;
+    GLKMatrix4 modelMatrix;
+    GLKMatrix4 viewMatrix;
 }
 @end
 
@@ -91,6 +96,9 @@
 }
 
 - (void)rotateBy:(float)r {
+    float ry = rotationEnd.y + r;
+    
+    rotationEnd.y = ry;
     
 }
 

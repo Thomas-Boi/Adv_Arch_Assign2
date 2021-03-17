@@ -15,13 +15,15 @@
     MazeManager *mazeManager;
     
     // track whether to display the map
-    bool display2DMap;
+    //bool display2DMap;
 }
 
 @end
 
-
 @implementation GameManager
+
+@synthesize display2DMap;
+
 - (void) initManager:(GLKView *)view  initialPlayerTransform:(GLKMatrix4) transform
 {
     renderer = [[Renderer alloc] init];
@@ -32,7 +34,7 @@
     [mazeManager createMazeWithRows:4 Columns:4];
     [self loadObjects:transform];
     
-    display2DMap = true;
+    display2DMap = false;
 }
 
 // add the player, platforms, and enemies to the tracker
@@ -108,7 +110,7 @@
     if (display2DMap)
     {
         [self draw2DMaze];
-        return;
+        //return;
     }
     
     [renderer draw:tracker.player];
