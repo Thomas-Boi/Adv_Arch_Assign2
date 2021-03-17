@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		620A231C26019B1B00D0EBE5 /* Flashlight.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 620A231B26019B1B00D0EBE5 /* Flashlight.fsh */; };
 		620A232026019B4800D0EBE5 /* Flashlight.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 620A231F26019B4800D0EBE5 /* Flashlight.vsh */; };
+		620A23252601A26300D0EBE5 /* FogShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 620A23242601A26300D0EBE5 /* FogShader.vsh */; };
+		620A23282601A28100D0EBE5 /* FogShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 620A23272601A28100D0EBE5 /* FogShader.fsh */; };
+		620A23372601AE4300D0EBE5 /* Lighting.mm in Sources */ = {isa = PBXBuildFile; fileRef = 620A23362601AE4300D0EBE5 /* Lighting.mm */; };
 		FA4FE50C25F96E3E00452F15 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE50B25F96E3E00452F15 /* AppDelegate.m */; };
 		FA4FE50F25F96E3E00452F15 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE50E25F96E3E00452F15 /* SceneDelegate.m */; };
 		FA4FE51225F96E3E00452F15 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4FE51125F96E3E00452F15 /* ViewController.mm */; };
@@ -37,6 +40,10 @@
 /* Begin PBXFileReference section */
 		620A231B26019B1B00D0EBE5 /* Flashlight.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Flashlight.fsh; sourceTree = "<group>"; };
 		620A231F26019B4800D0EBE5 /* Flashlight.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Flashlight.vsh; sourceTree = "<group>"; };
+		620A23242601A26300D0EBE5 /* FogShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = FogShader.vsh; sourceTree = "<group>"; };
+		620A23272601A28100D0EBE5 /* FogShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = FogShader.fsh; sourceTree = "<group>"; };
+		620A23352601AE4300D0EBE5 /* Lighting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lighting.h; sourceTree = "<group>"; };
+		620A23362601AE4300D0EBE5 /* Lighting.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Lighting.mm; sourceTree = "<group>"; };
 		FA4FE50725F96E3E00452F15 /* Assignment2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA4FE50A25F96E3E00452F15 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FA4FE50B25F96E3E00452F15 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -155,6 +162,8 @@
 				FA4FE52B25F96EBC00452F15 /* CrateShader.vsh */,
 				620A231B26019B1B00D0EBE5 /* Flashlight.fsh */,
 				620A231F26019B4800D0EBE5 /* Flashlight.vsh */,
+				620A23272601A28100D0EBE5 /* FogShader.fsh */,
+				620A23242601A26300D0EBE5 /* FogShader.vsh */,
 			);
 			path = shaders;
 			sourceTree = "<group>";
@@ -169,6 +178,8 @@
 				FACA780725FF13C600DDC233 /* GameObject.mm */,
 				FACA780325FF0D3800DDC233 /* Cube.h */,
 				FACA780425FF0D4F00DDC233 /* Cube.mm */,
+				620A23352601AE4300D0EBE5 /* Lighting.h */,
+				620A23362601AE4300D0EBE5 /* Lighting.mm */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -247,11 +258,13 @@
 				FA4FE51725F96E3E00452F15 /* Assets.xcassets in Resources */,
 				FA8AAC1526008C0700A6E0EA /* RedShader.fsh in Resources */,
 				FA8AAC1426008C0700A6E0EA /* RedShader.vsh in Resources */,
+				620A23252601A26300D0EBE5 /* FogShader.vsh in Resources */,
 				FA4FE53925F972B600452F15 /* crate.jpg in Resources */,
 				620A231C26019B1B00D0EBE5 /* Flashlight.fsh in Resources */,
 				620A232026019B4800D0EBE5 /* Flashlight.vsh in Resources */,
 				FA4FE51525F96E3E00452F15 /* Main.storyboard in Resources */,
 				FA4FE52F25F96EBC00452F15 /* CrateShader.vsh in Resources */,
+				620A23282601A28100D0EBE5 /* FogShader.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +286,7 @@
 				FACA781B25FF1CCC00DDC233 /* Player.mm in Sources */,
 				FA4FE51D25F96E3E00452F15 /* main.m in Sources */,
 				FACA781525FF1C7D00DDC233 /* GameManager.mm in Sources */,
+				620A23372601AE4300D0EBE5 /* Lighting.mm in Sources */,
 				FA4FE54D25F9A62F00452F15 /* Renderer.mm in Sources */,
 				FA4FE50F25F96E3E00452F15 /* SceneDelegate.m in Sources */,
 				FAD55AF225FFDE14009974BC /* MazeManager.mm in Sources */,

@@ -23,7 +23,6 @@
     GLKVector3 rotationAxis;
     
     /*-----------------------*/
-    GLKMatrix4 modelViewMatrix;
     GLKMatrix4 modelMatrix;
     GLKMatrix4 viewMatrix;
 }

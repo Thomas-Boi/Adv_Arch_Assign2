@@ -41,9 +41,9 @@
         GLKVector3 mov = GLKVector3Make(0.0f, 0.0f, 0.0f);
         
         if (velocity.x > 0) { // right
-            [playerTransformations rotateBy:-0.05f];
+            [playerTransformations rotateBy:-0.02];
         } else if (velocity.x < 0) { // left
-            [playerTransformations rotateBy:0.05f];
+            [playerTransformations rotateBy:0.02];
         }
         if (velocity.y > 0) { // up
             mov.z += 0.05f;
@@ -117,6 +117,8 @@
     glesRenderer = [[Renderer alloc] init];
     GLKView *view = (GLKView *)self.view;
     // Initialize transformations for the player
+    
+    // -1, -5
     playerTransformations = [[Transformations alloc] initWithScale:1.0f Translation:GLKVector3Make(0.0f, -1.0f, -5.0f) Rotation:0 RotationAxis:GLKVector3Make(0.0, 0.0, 1.0)];
     [playerTransformations start];
     
