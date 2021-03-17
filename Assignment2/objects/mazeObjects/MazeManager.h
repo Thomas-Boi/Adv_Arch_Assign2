@@ -9,13 +9,14 @@
 #define MazeManager_h
 
 #import "maze.hpp"
-#import "Wall2D.h"
+#import "GameObject.h"
 #import "Transformations.h"
 #import <Foundation/Foundation.h>
 
 @interface MazeManager : NSObject
 
 @property(readonly) NSMutableArray *walls2D;
+@property(readonly) NSMutableArray *walls3D;
 
 - (void) createMazeWithRows:(int)rows Columns:(int)cols;
 @end

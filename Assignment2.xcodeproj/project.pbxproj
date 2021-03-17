@@ -30,7 +30,6 @@
 		FACA781525FF1C7D00DDC233 /* GameManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA781125FF1C7D00DDC233 /* GameManager.mm */; };
 		FACA781B25FF1CCC00DDC233 /* Player.mm in Sources */ = {isa = PBXBuildFile; fileRef = FACA781825FF1CCC00DDC233 /* Player.mm */; };
 		FAD55AF225FFDE14009974BC /* MazeManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAD55AF125FFDE14009974BC /* MazeManager.mm */; };
-		FAD55AFA25FFE0EE009974BC /* Wall2D.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAD55AF925FFE0EE009974BC /* Wall2D.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,9 +73,6 @@
 		FACA781825FF1CCC00DDC233 /* Player.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Player.mm; sourceTree = "<group>"; };
 		FAD55AF125FFDE14009974BC /* MazeManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MazeManager.mm; sourceTree = "<group>"; };
 		FAD55AF425FFDE1C009974BC /* MazeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MazeManager.h; sourceTree = "<group>"; };
-		FAD55AF725FFE0D3009974BC /* Wall2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wall2D.h; sourceTree = "<group>"; };
-		FAD55AF925FFE0EE009974BC /* Wall2D.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Wall2D.mm; sourceTree = "<group>"; };
-		FAD55AFF25FFEFF9009974BC /* Wall3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wall3D.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,9 +176,6 @@
 				FA4FE55025F9B00A00452F15 /* DisjointSet.cpp */,
 				FAD55AF125FFDE14009974BC /* MazeManager.mm */,
 				FAD55AF425FFDE1C009974BC /* MazeManager.h */,
-				FAD55AF925FFE0EE009974BC /* Wall2D.mm */,
-				FAD55AF725FFE0D3009974BC /* Wall2D.h */,
-				FAD55AFF25FFEFF9009974BC /* Wall3D.h */,
 			);
 			path = mazeObjects;
 			sourceTree = "<group>";
@@ -263,7 +256,6 @@
 			files = (
 				FACA780525FF0D4F00DDC233 /* Cube.mm in Sources */,
 				FACA780925FF13C600DDC233 /* GameObject.mm in Sources */,
-				FAD55AFA25FFE0EE009974BC /* Wall2D.mm in Sources */,
 				FA4FE55425F9B00A00452F15 /* DisjointSet.cpp in Sources */,
 				FA4FE52C25F96EBC00452F15 /* GLESRenderer.cpp in Sources */,
 				FA4FE55525F9B00A00452F15 /* maze.cpp in Sources */,

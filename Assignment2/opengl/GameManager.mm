@@ -13,6 +13,9 @@
     Renderer *renderer;
     ObjectTracker *tracker;
     MazeManager *mazeManager;
+    
+    // track whether to display the map
+    bool display2DMap;
 }
 
 @end
@@ -28,6 +31,8 @@
     mazeManager = [[MazeManager alloc] init];
     [mazeManager createMazeWithRows:4 Columns:4];
     [self loadObjects:transform];
+    
+    display2DMap = true;
 }
 
 // add the player, platforms, and enemies to the tracker
@@ -43,7 +48,7 @@
         [cube initRotation];
         [tracker addCube:cube];
         
-        for (Wall2D *wall in mazeManager.walls2D) {
+        for (GameObject *wall in mazeManager.walls3D) {
             [tracker addObject: wall];
         }
     }
@@ -99,14 +104,28 @@
 - (void) draw
 {
     [renderer clear];
-    //[renderer draw:tracker.player];
-    //[renderer draw:tracker.cube];
     
+    if (display2DMap)
+    {
+        [self draw2DMaze];
+        return;
+    }
+    
+    [renderer draw:tracker.player];
+    [renderer draw:tracker.cube];
+
     for (GameObject *obj in tracker.objects)
     {
         [renderer draw:obj];
     }
-    
+}
+
+- (void)draw2DMaze
+{
+    for (GameObject *wall in mazeManager.walls2D)
+    {
+        [renderer draw:wall];
+    }
 }
 
 @end
