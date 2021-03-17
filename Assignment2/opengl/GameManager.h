@@ -20,8 +20,9 @@
 @interface GameManager : NSObject
 
 - (void) initManager:(GLKView *)view initialPlayerTransform:(GLKMatrix4) transform;
+- (void) initManager:(GLKView *)view initialCubeTransform:(GLKMatrix4) transform playerTransform:(GLKMatrix4) pTransform;
 - (void) addObject:(GameObject *) obj;
-- (void) update:(GLKMatrix4) transformations;
+- (void) update:(GLKMatrix4) transformations initialCubeTranform:(GLKMatrix4) cubeTransformations;
 - (void) draw;
 
 @end

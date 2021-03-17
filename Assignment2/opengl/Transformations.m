@@ -8,7 +8,8 @@
 #import "Transformations.h"
 
 @interface Transformations ()
-{    
+{
+    
     float scaleStart;
     float scaleEnd;
     
@@ -21,6 +22,15 @@
     float rotationStart;
     GLKQuaternion rotationEnd;
     GLKVector3 rotationAxis;
+    
+    /*-------------------------*/
+    
+    GLKMatrix4 modelMatrix;
+    
+    GLKMatrix4 viewMatrix;
+    GLKVector3 cameraPosition;
+    GLKVector3 cameraForwards;
+    
 }
 @end
 
@@ -31,6 +41,7 @@
 {
     if (self = [super init])
     {
+        // Initialize for cube model matrix
         scaleEnd = s;
         translateEnd = t;
         rotationAxis = rotAxis;
@@ -50,8 +61,9 @@
 - (void)start
 {
     scaleStart = scaleEnd;
-    translateStart = GLKVector3Make(0.0f, 0.0f , 0.0f);
+    translateStart = GLKVector3Make(0.0f, 0.0f, 0.0f);
     rotationStart = 0.0f;
+    
 }
 
 - (void)scale:(float)s
@@ -79,6 +91,10 @@
     float dz = translateEnd.z + t.z;
     
     translateEnd = GLKVector3Make(dx, dy, dz);
+    
+    // Update camera position and forwards as well
+    cameraPosition = translateEnd;
+    cameraForwards = translateEnd;
 }
 
 - (void)rotate:(float)rotation withMultiplier:(float)m
@@ -91,6 +107,7 @@
 }
 
 - (void)rotateBy:(float)r {
+    // for this we are only worried about rotating on the y-axis (left/right)
     
 }
 
@@ -102,13 +119,33 @@
 
 - (GLKMatrix4)getModelViewMatrix
 {
-    GLKMatrix4 modelViewMatrix = GLKMatrix4Identity;
+    
+    //GLKMatrix4 modelViewMatrix;
+    
+    GLKMatrix4 xRotMatrix = GLKMatrix4MakeXRotation(rotationEnd.x);
+    GLKMatrix4 yRotMatrix = GLKMatrix4MakeYRotation(rotationEnd.y);
+    GLKMatrix4 zRotMatrix = GLKMatrix4MakeZRotation(rotationEnd.z);
+    GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(scaleEnd, scaleEnd, scaleEnd);
+    GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(translateEnd.x, translateEnd.y, translateEnd.z);
+    
+    modelMatrix = GLKMatrix4Multiply(translateMatrix,
+                GLKMatrix4Multiply(scaleMatrix,
+                GLKMatrix4Multiply(zRotMatrix,
+                GLKMatrix4Multiply(yRotMatrix, xRotMatrix))));
+    
+    GLKVector3 lookAt = GLKVector3Add(cameraPosition, cameraForwards);
+    viewMatrix = GLKMatrix4MakeLookAt(cameraPosition.x, cameraPosition.y, cameraPosition.z, 0, 0, 0, 0, 1, 0);
+    
+    /*GLKMatrix4 modelViewMatrix = GLKMatrix4Identity;
     GLKMatrix4 quaternionMatrix = GLKMatrix4MakeWithQuaternion(rotationEnd);
     
     modelViewMatrix = GLKMatrix4Translate(modelViewMatrix, translateEnd.x, translateEnd.y, translateEnd.z);
     modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, quaternionMatrix);
-    modelViewMatrix = GLKMatrix4Scale(modelViewMatrix, scaleEnd, scaleEnd, scaleEnd);
-    return modelViewMatrix;
+    modelViewMatrix = GLKMatrix4Scale(modelViewMatrix, scaleEnd, scaleEnd, scaleEnd);*/
+    
+    GLKMatrix4 modelViewMatrix = GLKMatrix4Multiply(viewMatrix, modelMatrix);
+    
+    return modelMatrix;
 }
 
 // static function that can be used to create mv matrix on the fly.

@@ -27,11 +27,23 @@
     
     mazeManager = [[MazeManager alloc] init];
     [mazeManager createMazeWithRows:4 Columns:4];
-    [self loadObjects:transform];
+    //[self loadObjects:transform];
 }
 
+- (void) initManager:(GLKView *)view initialCubeTransform:(GLKMatrix4) transform playerTransform:(GLKMatrix4) pTransform {
+    
+    renderer = [[Renderer alloc] init];
+    [renderer setup:view];
+    tracker = [[ObjectTracker alloc] init];
+    
+    mazeManager = [[MazeManager alloc] init];
+    [mazeManager createMazeWithRows:4 Columns:4];
+    [self loadObjects:pTransform cubeTransform:transform];
+}
+
+
 // add the player, platforms, and enemies to the tracker
-- (void) loadObjects:(GLKMatrix4) initialPlayerTransform
+- (void) loadObjects:(GLKMatrix4) initialPlayerTransform cubeTransform:(GLKMatrix4) initialCubeTransform
 {
     @autoreleasepool {
         // note: all models use the cube. The param is for future use
@@ -39,7 +51,7 @@
         [self createPlayer:@"playerModel" VertShader:@"RedShader.vsh" FragShader:@"RedShader.fsh" Transformation:initialPlayerTransform];
         
         GLKMatrix4 cubeTransform = [Transformations createModelViewMatrixWithTranslation:GLKVector3Make(5.0, -1.0, -5.0) Rotation:0.0 RotationAxis:GLKVector3Make(1.0, 0.0, 0.0) Scale:GLKVector3Make(1.0, 1.0, 1.0)];
-        Cube *cube = [self createCube:@"playerModel" VertShader:@"CrateShader.vsh" FragShader:@"CrateShader.fsh" Transformation:cubeTransform];
+        Cube *cube = [self createCube:@"playerModel" VertShader:@"CrateShader.vsh" FragShader:@"CrateShader.fsh" Transformation:initialCubeTransform];
         [cube initRotation];
         [tracker addCube:cube];
         
@@ -83,11 +95,11 @@
 }
 
 // update the player movement and slide the platform here
-- (void) update:(GLKMatrix4) transformations
+- (void) update:(GLKMatrix4) transformations initialCubeTranform:(GLKMatrix4) cubeTransformations
 {
     
     [tracker.player loadTransformation:transformations];
-    [tracker.cube update];
+    [tracker.cube loadTransformation:cubeTransformations];
     /*
     for (GameObject *platform in tracker.platforms)
     {
@@ -99,13 +111,13 @@
 - (void) draw
 {
     [renderer clear];
-    //[renderer draw:tracker.player];
-    //[renderer draw:tracker.cube];
+    [renderer draw:tracker.player];
+    [renderer draw:tracker.cube];
     
-    for (GameObject *obj in tracker.objects)
+    /*for (GameObject *obj in tracker.objects)
     {
         [renderer draw:obj];
-    }
+    }*/
     
 }
 

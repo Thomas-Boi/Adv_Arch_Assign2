@@ -13,6 +13,7 @@
     Renderer *glesRenderer;
     GameManager *manager;
     Transformations *transformations;
+    Transformations *cubeTransformations;
     Transformations *playerTransformations;
     bool fogState, flashlightState, lightingState;
     
@@ -22,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *flashlightBtn;
 @property (weak, nonatomic) IBOutlet UIButton *lightingBtn;
 
-@property (weak, nonatomic) IBOutlet UILabel *console;
+//@property (weak, nonatomic) IBOutlet UILabel *console;
 
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *singleFinTap;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *doubleFinTap;
@@ -66,11 +67,11 @@
 
 - (IBAction)showConsole:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        if (!_console.isHidden) {
+        /*if (!_console.isHidden) {
             _console.hidden = true;
         } else {
             _console.hidden = false;
-        }
+        }*/
     }
 }
 
@@ -121,11 +122,15 @@
     // ### <<<
     // send a message to Renderer's alloc method (aka call it) then pass the return
     // result into another message call. Now, call the return obj's init method.
+    
     glesRenderer = [[Renderer alloc] init];
     GLKView *view = (GLKView *)self.view;
     // Initialize transformations for the player
     playerTransformations = [[Transformations alloc] initWithScale:1.0f Translation:GLKVector3Make(0.0f, -1.0f, -5.0f) Rotation:0 RotationAxis:GLKVector3Make(0.0, 0.0, 1.0)];
     [playerTransformations start];
+    cubeTransformations = [[Transformations alloc] initWithScale:1.0f Translation:GLKVector3Make(3.0f, -1.0f, -5.0f) Rotation:0 RotationAxis:GLKVector3Make(0.0, 0.0, 1.0)];
+    [cubeTransformations start];
+
     
     // set up the opengl window and draw
     // set up the manager
@@ -143,15 +148,16 @@
     _doubleFinTap.numberOfTapsRequired = 2;
     _doubleFinTap.numberOfTouchesRequired = 2;
     
-    [_console sizeToFit];
-    _console.hidden = true;
+    //[_console sizeToFit];
+    //_console.hidden = true;
 }
 
 - (void)update
 {
     
     GLKMatrix4 modelViewMatrix = [playerTransformations getModelViewMatrix];
-    [manager update:modelViewMatrix]; // ###
+    GLKMatrix4 cubeModelViewMatrix = [cubeTransformations getModelViewMatrix];
+    [manager update:modelViewMatrix initialCubeTranform:cubeModelViewMatrix]; // ###
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
