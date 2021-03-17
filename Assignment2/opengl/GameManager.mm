@@ -32,7 +32,7 @@
     [mazeManager createMazeWithRows:4 Columns:4];
     [self loadObjects:transform];
     
-    display2DMap = true;
+    display2DMap = false;
 }
 
 // add the player, platforms, and enemies to the tracker
