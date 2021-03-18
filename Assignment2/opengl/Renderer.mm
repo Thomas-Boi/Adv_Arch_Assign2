@@ -74,19 +74,26 @@
 - (void)draw:(GameObject *) obj
 {
 
-    // Select VAO and shaders
+    // Select VAO
     glBindVertexArray(obj.vertexArray);
+    
+    // select the shader program
     glUseProgram(obj.programObject);
     
-    // Set up uniforms
+    // Select IBO (index buffer object) and draw
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, obj.indexBuffer);
+    
+    // select the texture
+    glBindTexture(GL_TEXTURE_2D, obj.texture);
+    
+    // Set up uniforms for the shaders
     GLKMatrix4 modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, obj.modelViewMatrix);
 
     glUniformMatrix4fv(obj.uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, modelViewProjectionMatrix.m);
     glUniformMatrix3fv(obj.uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, obj.normalMatrix.m);
     // ### Set values for lighting parameter uniforms here...
     
-    // Select VBO and draw
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, obj.indexBuffer);
+
     glDrawElements(GL_TRIANGLES, obj.numIndices, GL_UNSIGNED_INT, 0);
     
 }

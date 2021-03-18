@@ -16,6 +16,7 @@
 
 @interface GameObject : NSObject
 @property(readonly) int _id;
+@property GLKMatrix4 modelMatrix;
 @property GLKMatrix4 modelViewMatrix;
 @property GLKMatrix3 normalMatrix;
 
@@ -27,16 +28,17 @@
 // shaders
 @property(readonly) GLint *uniforms;
 @property(readonly) GLuint programObject;
+@property(readonly) GLuint texture;
 
-// creating the objects 
+// creating the objects
 - (bool)setupVertShader:(NSString *) vShaderName AndFragShader:(NSString *) fShaderName;
 - (void)loadModels:(NSString *)modelName;
-- (void)loadTransformation:(GLKMatrix4) transformation;
+- (void)loadModelMatrix:(GLKMatrix4) modelMatrix;
 - (void)loadTexture:(NSString *)textureFileName;
 
 // lifecyces
 - (void)update;
-- (void)updateWithTransformation:(GLKMatrix4) transformation;
+- (void)updateWithViewMatrix:(GLKMatrix4) viewMatrix;
 
 @end
 #endif /* GameObject_h */

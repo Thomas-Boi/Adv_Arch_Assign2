@@ -18,7 +18,7 @@
 @property(readonly) NSMutableArray *walls2D;
 @property(readonly) NSMutableArray *walls3D;
 
-- (void) createMazeWithRows:(int)rows Columns:(int)cols;
+- (void) createMazeWithRows:(int)rows Columns:(int)cols Depth:(float)dist;
 @end
 
 #endif /* MazeManager_h */

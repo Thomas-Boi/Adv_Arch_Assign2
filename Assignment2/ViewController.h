@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Renderer.h" // ###
 #import "Transformations.h"
+#import "CameraTransformations.h"
 #import "GameManager.h"
 
 // line below is what XCode generate by default

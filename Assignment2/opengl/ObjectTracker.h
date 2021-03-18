@@ -15,12 +15,8 @@
 
 @interface ObjectTracker : NSObject
 
-@property(readonly) Player *player;
-@property(readonly) Cube *cube;
 @property(readonly) NSMutableArray *objects;
 
-- (void) addPlayer: (Player *) player;
-- (void) addCube: (Cube *) cube;
 - (void) addObject: (GameObject *) platform;
 - (void) cleanUp;
 

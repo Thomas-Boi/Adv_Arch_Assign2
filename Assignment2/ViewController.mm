@@ -12,8 +12,7 @@
     // Renderer is imported in the header file so don't need to reimport here
     Renderer *glesRenderer;
     GameManager *manager;
-    Transformations *transformations;
-    Transformations *playerTransformations;
+    CameraTransformations *cameraTransformations;
     bool fogState, flashlightState, lightingState;
     
 }
@@ -38,26 +37,29 @@
         CGPoint velocity = [sender velocityInView:self.view];
 
         // Y-up is negative, Y-down is positive
+        // remember this for rotation as well
         GLKVector3 mov = GLKVector3Make(0.0f, 0.0f, 0.0f);
         
-        if (velocity.x > 0) { // right
-            [playerTransformations rotateBy:-0.02];
-        } else if (velocity.x < 0) { // left
-            [playerTransformations rotateBy:0.02];
+        if (velocity.x > 0) {
+            // drag left to right equals clockwise
+            [cameraTransformations rotate:-0.01];
+        } else if (velocity.x < 0) {
+            // draft right to left equals counter clockwise
+            [cameraTransformations rotate:0.01];
         }
         if (velocity.y > 0) { // up
-            mov.z += 0.05f;
+            mov.z += 0.1f;
         } else if (velocity.y < 0) { // down
-            mov.z += -0.05f;
+            mov.z += -0.1f;
         }
         
-        [playerTransformations translateBy:mov];
+        [cameraTransformations translate:mov];
         
     }
 }
 - (IBAction)resetPlayerCube:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        [playerTransformations reset];
+        [cameraTransformations reset];
     }
 }
 
@@ -119,14 +121,12 @@
     // Initialize transformations for the player
     
     // -1, -5
-    playerTransformations = [[Transformations alloc] initWithScale:1.0f Translation:GLKVector3Make(0.0f, -1.0f, -5.0f) Rotation:0 RotationAxis:GLKVector3Make(0.0, 0.0, 1.0)];
-    [playerTransformations start];
+    cameraTransformations = [[CameraTransformations alloc] init];
     
     // set up the opengl window and draw
     // set up the manager
     manager = [[GameManager alloc] init];
-    GLKMatrix4 initialPlayerTransformation = [playerTransformations getModelViewMatrix];
-    [manager initManager:view initialPlayerTransform:initialPlayerTransformation];
+    [manager initManager:view];
     
         
     // Gestures setup
@@ -142,8 +142,8 @@
 - (void)update
 {
     
-    GLKMatrix4 modelViewMatrix = [playerTransformations getModelViewMatrix];
-    [manager update:modelViewMatrix]; // ###
+    GLKMatrix4 viewMatrix = [cameraTransformations getViewMatrix];
+    [manager update:viewMatrix]; // ###
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect

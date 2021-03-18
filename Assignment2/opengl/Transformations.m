@@ -107,6 +107,7 @@
     rotationEnd = originalRotation;
 }
 
+// create the model view matrix
 - (GLKMatrix4)getModelViewMatrix
 {
     GLKMatrix4 modelViewMatrix = GLKMatrix4Identity;
@@ -119,18 +120,18 @@
 }
 
 // static function that can be used to create mv matrix on the fly.
-+ (GLKMatrix4)createModelViewMatrixWithTranslation:(GLKVector3)translation Rotation:(float)rotation RotationAxis:(GLKVector3)rotAxis Scale:(GLKVector3)scale
++ (GLKMatrix4)createModelMatrixWithTranslation:(GLKVector3)translation Rotation:(float)rotation RotationAxis:(GLKVector3)rotAxis Scale:(GLKVector3)scale
 {
-    GLKMatrix4 modelViewMatrix = GLKMatrix4Identity;
+    GLKMatrix4 modelMatrix = GLKMatrix4Identity;
     
     rotation = GLKMathDegreesToRadians(rotation);
     GLKQuaternion rotQuat = GLKQuaternionMakeWithAngleAndVector3Axis(rotation, rotAxis);
     GLKMatrix4 quaternionMatrix = GLKMatrix4MakeWithQuaternion(rotQuat);
     
-    modelViewMatrix = GLKMatrix4Translate(modelViewMatrix, translation.x, translation.y, translation.z);
-    modelViewMatrix = GLKMatrix4Multiply(modelViewMatrix, quaternionMatrix);
-    modelViewMatrix = GLKMatrix4Scale(modelViewMatrix, scale.x, scale.y, scale.z);
+    modelMatrix = GLKMatrix4Translate(modelMatrix, translation.x, translation.y, translation.z);
+    modelMatrix = GLKMatrix4Multiply(modelMatrix, quaternionMatrix);
+    modelMatrix = GLKMatrix4Scale(modelMatrix, scale.x, scale.y, scale.z);
      
-    return modelViewMatrix;
+    return modelMatrix;
 }
 @end

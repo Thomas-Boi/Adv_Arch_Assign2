@@ -24,7 +24,6 @@ enum
     // shader
     GLESRenderer glesRenderer; // use the cube for now
     GLint _uniforms[NUM_UNIFORMS];
-    GLuint crateTexture;
     
     // Model
     float *vertices, *normals, *texCoords;
@@ -40,6 +39,7 @@ enum
 @implementation GameObject
 // props
 @synthesize _id;
+@synthesize modelMatrix;
 @synthesize modelViewMatrix;
 @synthesize normalMatrix;
 
@@ -49,6 +49,7 @@ enum
 
 // shaders
 @synthesize programObject;
+@synthesize texture;
 - (GLint *) uniforms
 {
     return _uniforms;
@@ -137,9 +138,8 @@ enum
 - (void)loadTexture:(NSString *)textureFileName
 {
     // Load texture to apply and set up texture in GL
-    crateTexture = [self setupTexture:textureFileName];
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, crateTexture);
+    texture = [self setupTexture:textureFileName];
+    glActiveTexture(GL_TEXTURE0); // set texture 0 to be active
     // uniforms[UNIFORM_TEXTURE] will store the sampler2D
     // 0 is the number of texture.
     glUniform1i(_uniforms[UNIFORM_TEXTURE], 0);
@@ -178,11 +178,11 @@ enum
 }
 
 // load the transformation for the GameObject
-- (void)loadTransformation:(GLKMatrix4) transformation
+- (void)loadModelMatrix:(GLKMatrix4) modelMatrix
 {
-    modelViewMatrix = transformation;
-    normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
-    
+    self.modelMatrix = modelMatrix;
+    normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelMatrix), NULL);
+    modelViewMatrix = modelMatrix;
 }
 
 
@@ -197,9 +197,9 @@ enum
 // update the object every draw cycle.
 // Also set its new transformation
 // this should be implemented by the child classes
-- (void)updateWithTransformation:(GLKMatrix4) transformation
+- (void)updateWithViewMatrix:(GLKMatrix4) viewMatrix
 {
-    [self loadTransformation:transformation];
+    modelViewMatrix = GLKMatrix4Multiply(viewMatrix, modelMatrix);
 }
 
 
