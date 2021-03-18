@@ -6,6 +6,12 @@
 //
 
 #import "MazeManager.h"
+enum MazeWall {
+    NORTH,
+    SOUTH,
+    WEST,
+    EAST
+};
 
 @interface MazeManager()
 {
@@ -171,7 +177,8 @@
                 float wallX = x;
                 float wallZ = z - halfCellWidth + halfWallWidth;
                 GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(wallX, wallY, wallZ) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:westToEastWallScale];
-                [self makeWall3D: transformation];
+                NSString *texFileName = [self getTextureNameForWall:NORTH Cell:cell];
+                [self makeWall3D: transformation TextureFile:texFileName];
             }
             
             if (cell.southWallPresent)
@@ -179,7 +186,8 @@
                 float wallX = x;
                 float wallZ = z + halfCellWidth - halfWallWidth;
                 GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(wallX, wallY, wallZ) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:westToEastWallScale];
-                [self makeWall3D: transformation];
+                NSString *texFileName = [self getTextureNameForWall:SOUTH Cell:cell];
+                [self makeWall3D: transformation TextureFile:texFileName];
             }
             
             if (cell.westWallPresent)
@@ -187,7 +195,8 @@
                 float wallX = x - halfCellWidth + halfWallWidth;
                 float wallZ = z;
                 GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(wallX, wallY, wallZ) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:northToSouthWallScale];
-                [self makeWall3D: transformation];
+                NSString *texFileName = [self getTextureNameForWall:WEST Cell:cell];
+                [self makeWall3D: transformation TextureFile:texFileName];
             }
             
             if (cell.eastWallPresent)
@@ -195,9 +204,9 @@
                 float wallX = x + halfCellWidth - halfWallWidth;
                 float wallZ = z;
                 GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(wallX, wallY, wallZ) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:northToSouthWallScale];
-                [self makeWall3D: transformation];
+                NSString *texFileName = [self getTextureNameForWall:EAST Cell:cell];
+                [self makeWall3D: transformation TextureFile:texFileName];
             }
-            
             
         }
     }
@@ -208,24 +217,72 @@
         GLKMatrix4 transformation = [Transformations createModelMatrixWithTranslation:GLKVector3Make(0, wallY - wallHeight / 2, -5) Rotation:0 RotationAxis:GLKVector3Make(0, 0, 0) Scale:GLKVector3Make(floorLength, 0.01, floorLength)];
         
         GameObject *obj = [[GameObject alloc] init];
-        [obj setupVertShader:@"RedShader.vsh" AndFragShader:@"RedShader.fsh"];
+        [obj setupVertShader:@"TextureShader.vsh" AndFragShader:@"TextureShader.fsh"];
         [obj loadModels:@"Cube"];
         [obj loadTransformation:transformation];
-        
+        [obj loadTexture:@"asphalt.jpg"];
         [_walls3D addObject:obj];
     }
      
 }
 
+- (NSString *)getTextureNameForWall:(MazeWall) direction Cell:(MazeCell) cell
+{
+    bool leftPresent, rightPresent = false;
+
+    switch (direction) {
+        case NORTH:
+            leftPresent = cell.westWallPresent;
+            rightPresent = cell.eastWallPresent;
+            break;
+            
+        case SOUTH:
+            leftPresent = cell.eastWallPresent;
+            rightPresent = cell.westWallPresent;
+            break;
+            
+        case WEST:
+            leftPresent = cell.southWallPresent;
+            rightPresent = cell.northWallPresent;
+            break;
+        
+        case EAST:
+            leftPresent = cell.northWallPresent;
+            rightPresent = cell.southWallPresent;
+            break;
+            
+        default:
+            return @"";
+    }
+
+    
+    if (leftPresent && rightPresent)
+    {
+        return @"stonewall.jpg";
+    }
+    else if (leftPresent)
+    {
+        return @"brick.jpg";
+    }
+    else if (rightPresent)
+    {
+        return @"grafiti.jpg";
+    }
+    else
+    {
+        return @"crate.jpg";
+    }
+}
+
 // make a 3D wall and add it to the _walls3D array
-- (void) makeWall3D: (GLKMatrix4) transform
+- (void) makeWall3D: (GLKMatrix4) transform TextureFile: (NSString *) textureFilename
 {
     @autoreleasepool {
         GameObject *obj = [[GameObject alloc] init];
         [obj setupVertShader:@"TextureShader.vsh" AndFragShader:@"TextureShader.fsh"];
         [obj loadModels:@"Cube"];
         [obj loadTransformation:transform];
-        [obj loadTexture:@"brick.jpg"];
+        [obj loadTexture:textureFilename];
         [_walls3D addObject:obj];
         
     }
