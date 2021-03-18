@@ -9,8 +9,6 @@
 
 @interface ObjectTracker()
 {
-    Player *_player;
-    Cube *_cube;
     NSMutableArray *_objects;
 }
 
@@ -19,8 +17,6 @@
 @implementation ObjectTracker
 
 // props
-@synthesize player=_player;
-@synthesize cube=_cube;
 
 - (NSMutableArray *) objects
 {
@@ -34,16 +30,6 @@
         _objects = [[NSMutableArray alloc] init];
     }
     return self;
-}
-
-- (void) addPlayer: (Player *) player
-{
-    _player = player;
-}
-
-- (void) addCube: (Cube *) cube
-{
-    _cube = cube;
 }
 
 - (void) addObject: (GameObject *) obj

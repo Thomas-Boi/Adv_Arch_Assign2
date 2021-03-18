@@ -39,6 +39,7 @@ enum
 @implementation GameObject
 // props
 @synthesize _id;
+@synthesize modelMatrix;
 @synthesize modelViewMatrix;
 @synthesize normalMatrix;
 
@@ -177,11 +178,11 @@ enum
 }
 
 // load the transformation for the GameObject
-- (void)loadTransformation:(GLKMatrix4) transformation
+- (void)loadModelMatrix:(GLKMatrix4) modelMatrix
 {
-    modelViewMatrix = transformation;
-    normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
-    
+    self.modelMatrix = modelMatrix;
+    normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelMatrix), NULL);
+    modelViewMatrix = modelMatrix;
 }
 
 
@@ -196,9 +197,9 @@ enum
 // update the object every draw cycle.
 // Also set its new transformation
 // this should be implemented by the child classes
-- (void)updateWithTransformation:(GLKMatrix4) transformation
+- (void)updateWithViewMatrix:(GLKMatrix4) viewMatrix
 {
-    [self loadTransformation:transformation];
+    modelViewMatrix = GLKMatrix4Multiply(viewMatrix, modelMatrix);
 }
 
 

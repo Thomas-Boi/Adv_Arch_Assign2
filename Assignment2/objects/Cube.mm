@@ -21,7 +21,7 @@
     lastTime = std::chrono::steady_clock::now();
 }
 
-- (void)update
+- (void)updateWithViewMatrix:(GLKMatrix4)viewMatrix
 {
     // Calculate elapsed time
     auto currentTime = std::chrono::steady_clock::now();
@@ -30,8 +30,8 @@
 
     float rotAngle = 0.001f * elapsedTime;
     
-    GLKMatrix4 newTransformation = GLKMatrix4Rotate(super.modelViewMatrix, rotAngle, 0.0f, 1.0f, 0.0f);
+    super.modelMatrix = GLKMatrix4Rotate(super.modelMatrix, rotAngle, 0.0f, 1.0f, 0.0f);
 
-    [super updateWithTransformation:newTransformation];
+    [super updateWithViewMatrix:viewMatrix];
 }
 @end

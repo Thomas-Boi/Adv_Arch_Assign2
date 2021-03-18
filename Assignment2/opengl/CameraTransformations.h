@@ -12,12 +12,12 @@
 
 @interface CameraTransformations : NSObject
 
-- (id)initWithTranslation:(GLKVector3)t Rotation:(float)r RotationAxis:(GLKVector3)rotAxis;
+- (id)initWithPosition:(GLKVector3)position Rotation:(float) rotation RotationAxis:(GLKVector3)upward;
 - (id)init;
 
-- (void)translate:(GLKVector3)t withMultiplier:(float)m;
+- (void)translate:(GLKVector3)t;
 
-- (void)rotate:(float)rotation rotationAxis:(GLKVector3)rotAxis withMultiplier:(float)m;
+- (void)rotate:(float)rotation;
 
 - (void)reset;
 

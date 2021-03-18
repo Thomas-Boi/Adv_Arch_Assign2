@@ -127,7 +127,7 @@ enum MazeWall {
         GameObject *obj = [[GameObject alloc] init];
         [obj setupVertShader:@"RedShader.vsh" AndFragShader:@"RedShader.fsh"];
         [obj loadModels:@"Cube"];
-        [obj loadTransformation:transform];
+        [obj loadModelMatrix:transform];
         
         [_walls2D addObject:obj];
         
@@ -219,7 +219,7 @@ enum MazeWall {
         GameObject *obj = [[GameObject alloc] init];
         [obj setupVertShader:@"TextureShader.vsh" AndFragShader:@"TextureShader.fsh"];
         [obj loadModels:@"Cube"];
-        [obj loadTransformation:transformation];
+        [obj loadModelMatrix:transformation];
         [obj loadTexture:@"asphalt.jpg"];
         [_walls3D addObject:obj];
     }
@@ -281,7 +281,7 @@ enum MazeWall {
         GameObject *obj = [[GameObject alloc] init];
         [obj setupVertShader:@"TextureShader.vsh" AndFragShader:@"TextureShader.fsh"];
         [obj loadModels:@"Cube"];
-        [obj loadTransformation:transform];
+        [obj loadModelMatrix:transform];
         [obj loadTexture:textureFilename];
         [_walls3D addObject:obj];
         
