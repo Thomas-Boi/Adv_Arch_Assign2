@@ -9,6 +9,8 @@
 
 @interface Renderer : NSObject
 
+@property bool useFog;
+
 - (void)setup:(GLKView *)view;  
 - (void)clear;
 - (void)draw:(GameObject *) obj;

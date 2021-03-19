@@ -72,13 +72,19 @@
 // MARK: Game options
 
 - (IBAction)switchFog:(UIButton *)sender {
-    if (!fogState) {
+    glesRenderer.useFog = !glesRenderer.useFog;
+    NSString *fogBtnTitle = glesRenderer.useFog ? @"Fog: On" : @"Fog: Off";
+    [_fogBtn setTitle:fogBtnTitle forState:UIControlStateNormal];
+    
+    //NSLog(@"Fog: %d", glesRenderer.useFog);
+    
+    /*if (!glesRenderer.useFog) {
         [_fogBtn setTitle:@"Fog: On" forState:UIControlStateNormal];
-        fogState = true;
+        glesRenderer.useFog = true;
     } else {
         [_fogBtn setTitle:@"Fog: Off" forState:UIControlStateNormal];
-        fogState = false;
-    }
+        glesRenderer.useFog = false;
+    }*/
 }
 
 - (IBAction)switchFlashlight:(UIButton *)sender {
