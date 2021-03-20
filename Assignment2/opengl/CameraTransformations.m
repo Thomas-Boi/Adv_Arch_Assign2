@@ -52,17 +52,24 @@
 // translate the position of the camera in world space
 - (void)translate:(float)forwardVelocity
 {
-    /*
-    float xComponent = fabs(forwardVelocity) * sin(rotation);
-    float zComponent = fabs(forwardVelocity) * cos(rotation);
     
+    float xComponent = 0.0f;
+    float zComponent = 0.0f;
+    GLKVector3 move;
+    
+    // When forwardVelocity is negative, its going forwards according to coordinate space
+    // When its positive, its going backwards
     if (forwardVelocity < 0)
     {
-        xComponent = -xComponent;
-        zComponent = -zComponent;
+        zComponent = -fabs(forwardVelocity) * cosf(rotation);
+        xComponent = fabs(forwardVelocity) * sinf(rotation);
     }
-     */
-    GLKVector3 move = GLKVector3Make(0, 0, forwardVelocity);
+    if (forwardVelocity > 0) {
+        zComponent = fabs(forwardVelocity) * cosf(rotation);
+        xComponent = -fabs(forwardVelocity) * sinf(rotation);
+    }
+    //NSLog(@"%f %f", xComponent, zComponent);
+    move = GLKVector3Make(xComponent, 0, zComponent);
     position = GLKVector3Add(position, move);
 }
 
@@ -71,13 +78,16 @@
 {
     // rotate using right hand rule will have counter clockwise rotation
     // make it clockwise by default
+    
     rotation += rotAngle;
-    NSLog(@"%f", rotation);
-    if (rotation >= 360) {
-        rotation -= 360;
+    
+    //NSLog(@"%f", rotation);
+    
+    if (rotation >= 2*M_PI) {
+        rotation -= 2*M_PI;
     }
-    else if (rotation <= -360) {
-        rotation += 360;
+    else if (rotation <= -2*M_PI) {
+        rotation += 2*M_PI;
     }
 }
 

@@ -38,9 +38,9 @@
 
         // minimum velocity before we count
         float minimum = 50;
-        NSLog(@"x: %f", velocity.x);
+        //NSLog(@"x: %f", velocity.x);
+        //NSLog(@"y: %f", velocity.y);
         
-        NSLog(@"y: %f", velocity.y);
         if (velocity.x > minimum) {
             // drag left to right equals clockwise
             // need to make it counter clockwise so use negative
@@ -82,8 +82,6 @@
     glesRenderer.useFog = !glesRenderer.useFog;
     NSString *fogBtnTitle = glesRenderer.useFog ? @"Fog: On" : @"Fog: Off";
     [_fogBtn setTitle:fogBtnTitle forState:UIControlStateNormal];
-    
-    //NSLog(@"Fog: %d", glesRenderer.useFog);
     
     /*if (!glesRenderer.useFog) {
         [_fogBtn setTitle:@"Fog: On" forState:UIControlStateNormal];
