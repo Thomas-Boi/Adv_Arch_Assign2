@@ -59,6 +59,7 @@
         [obj loadModels:modelName];
         [obj loadModelMatrix:transformations];
         [obj loadTexture:@"crate.jpg"];
+        [obj setDefaultDiffuseLight];
         return obj;
     }
 }
@@ -67,6 +68,16 @@
 - (void) addObject:(GameObject *) obj
 {
 
+}
+
+- (void)setIsFoggy:(bool) newIsFoggy
+{
+    [renderer setIsFoggy:newIsFoggy];
+}
+
+- (void)setIsDay:(bool) newIsDay
+{
+    [renderer setIsDay:newIsDay];
 }
 
 // update the player movement and slide the platform here

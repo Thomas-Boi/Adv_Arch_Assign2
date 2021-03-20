@@ -21,6 +21,9 @@
 
 - (void) initManager:(GLKView *)view;
 - (void) addObject:(GameObject *) obj;
+
+- (void)setIsFoggy:(bool) newIsFoggy;
+- (void)setIsDay:(bool) newIsDay;
 - (void) update:(GLKMatrix4) viewMatrix;
 - (void) draw;
 

@@ -13,7 +13,7 @@
     Renderer *glesRenderer;
     GameManager *manager;
     CameraTransformations *cameraTransformations;
-    bool fogState, flashlightState, lightingState;
+    bool isFoggy, flashlightState, isDay;
     
 }
 
@@ -79,9 +79,9 @@
 // MARK: Game options
 
 - (IBAction)switchFog:(UIButton *)sender {
-    glesRenderer.useFog = !glesRenderer.useFog;
-    NSString *fogBtnTitle = glesRenderer.useFog ? @"Fog: On" : @"Fog: Off";
+    NSString *fogBtnTitle = isFoggy ? @"Fog: On" : @"Fog: Off";
     [_fogBtn setTitle:fogBtnTitle forState:UIControlStateNormal];
+    [manager setIsFoggy:isFoggy];
     
     /*if (!glesRenderer.useFog) {
         [_fogBtn setTitle:@"Fog: On" forState:UIControlStateNormal];
@@ -104,13 +104,13 @@
 
 - (IBAction)switchLighting:(UIButton *)sender {
     // Daytime should be the default
-    if (!lightingState) {
+    if (isDay) {
         [_lightingBtn setTitle:@"Mode: Night" forState:UIControlStateNormal];
-        lightingState = true;
     } else {
         [_lightingBtn setTitle:@"Mode: Day" forState:UIControlStateNormal];
-        lightingState = false;
     }
+    isDay = !isDay;
+    [manager setIsDay:isDay];
 }
 
 // MARK: View Rendering
@@ -148,6 +148,8 @@
     // Double finger double tap
     _doubleFinTap.numberOfTapsRequired = 2;
     _doubleFinTap.numberOfTouchesRequired = 2;
+    
+    isDay = true;
 }
 
 - (void)update

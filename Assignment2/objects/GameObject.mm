@@ -48,8 +48,8 @@ enum
 @synthesize normalMatrix;
 
 // lighting
-//@synthesize diffuseLightPosition;
-//@synthesize diffuseComponent;
+@synthesize diffuseLightPosition;
+@synthesize diffuseComponent;
 
 @synthesize vertexArray;
 @synthesize indexBuffer;
@@ -137,12 +137,12 @@ enum
     _uniforms[UNIFORM_TEXTURE] = glGetUniformLocation(programObject, "texSampler");
     
     // ### Add lighting uniform locations here...
-//    _uniforms[UNIFORM_LIGHT_SPECULAR_POSITION] = glGetUniformLocation(programObject, "specularLightPosition");
-//    _uniforms[UNIFORM_LIGHT_DIFFUSE_POSITION] = glGetUniformLocation(programObject, "diffuseLightPosition");
-//    _uniforms[UNIFORM_LIGHT_DIFFUSE_COMPONENT] = glGetUniformLocation(programObject, "diffuseComponent");
-//    _uniforms[UNIFORM_LIGHT_SHININESS] = glGetUniformLocation(programObject, "shininess");
-//    _uniforms[UNIFORM_LIGHT_SPECULAR_COMPONENT] = glGetUniformLocation(programObject, "specularComponent");
-//    _uniforms[UNIFORM_LIGHT_AMBIENT_COMPONENT] = glGetUniformLocation(programObject, "ambientComponent");
+    _uniforms[UNIFORM_LIGHT_SPECULAR_POSITION] = glGetUniformLocation(programObject, "specularLightPosition");
+    _uniforms[UNIFORM_LIGHT_DIFFUSE_POSITION] = glGetUniformLocation(programObject, "diffuseLightPosition");
+    _uniforms[UNIFORM_LIGHT_DIFFUSE_COMPONENT] = glGetUniformLocation(programObject, "diffuseComponent");
+    _uniforms[UNIFORM_LIGHT_SHININESS] = glGetUniformLocation(programObject, "shininess");
+    _uniforms[UNIFORM_LIGHT_SPECULAR_COMPONENT] = glGetUniformLocation(programObject, "specularComponent");
+    _uniforms[UNIFORM_LIGHT_AMBIENT_COMPONENT] = glGetUniformLocation(programObject, "ambientComponent");
     _uniforms[UNIFORM_USE_FOG] = glGetUniformLocation(programObject, "useFog");
     
     // Set up lighting parameters
@@ -200,6 +200,17 @@ enum
     self.modelMatrix = modelMatrix;
     normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelMatrix), NULL);
     modelViewMatrix = modelMatrix;
+}
+
+- (void)setDiffuseLightPosition:(GLKVector4)diffuseLightPosition DiffuseComponent: (GLKVector4)component
+{
+    self.diffuseLightPosition = diffuseLightPosition;
+    self.diffuseComponent = component;
+}
+
+- (void)setDefaultDiffuseLight
+{
+    [self setDiffuseLightPosition:GLKVector4Make(0, 1, 0, 1) DiffuseComponent:GLKVector4Make(255/255.0f, 255/255.0f, 255/255.0f, 1.0)];
 }
 
 
