@@ -11,11 +11,11 @@
 #import <GLKit/GLKit.h>
 
 @interface CameraTransformations : NSObject
+- (id)initWithPosition:(GLKVector3)position ForwardVector:(GLKVector3)forward UpwardVector:(GLKVector3)upward Rotation:(float)newRotation RotationAxis:(GLKVector3)rotationAxis;
 
-- (id)initWithPosition:(GLKVector3)position Rotation:(float) rotation RotationAxis:(GLKVector3)upward;
-- (id)init;
+- (id)initWithDefaultValues;
 
-- (void)translate:(GLKVector3)t;
+- (void)translate:(float)forwardVelocity;
 
 - (void)rotate:(float)rotation;
 

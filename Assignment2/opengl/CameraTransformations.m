@@ -9,50 +9,61 @@
 
 @interface CameraTransformations ()
 {
-    GLKVector3 originalTranslation;
-    GLKVector3 originalTarget;
+    GLKVector3 originalPosition;
+    GLKVector3 originalForwardVector;
     float originalRotation;
     
     // only has one rotation axis for this assignment
     GLKVector3 position;
     float rotation;
     GLKVector3 rotAxis;
-    GLKVector3 _upwardVector;
-    GLKVector3 _target;
+    GLKVector3 upwardVector;
+    GLKVector3 forwardVector;
 }
 @end
 
 
 @implementation CameraTransformations
-
-- (id)initWithPosition:(GLKVector3)newPosition Rotation:(float)newRotation RotationAxis:(GLKVector3)rotationAxis
+- (id)initWithPosition:(GLKVector3)newPosition ForwardVector:(GLKVector3)forward UpwardVector:(GLKVector3)upward Rotation:(float)newRotation RotationAxis:(GLKVector3)rotationAxis
 {
     if (self = [super init])
     {
         position = newPosition;
+        forwardVector = forward; // face z by default
+        upwardVector = upward;
         rotation = newRotation;
         rotAxis = rotationAxis;
-        //_target = target;
-        //_upwardVector = upward;
         
         // save initial translation and rotation
-        originalTranslation = position;
+        originalPosition = position;
+        originalForwardVector = forward;
         originalRotation = rotation;
-        //originalTarget = target
+        
     }
     return self;
 }
 
-- (id)init
+- (id)initWithDefaultValues
 {
     // by default, only rotate around the y axis
-    return [self initWithPosition:GLKVector3Make(0, 0, 0) Rotation:0 RotationAxis:GLKVector3Make(0, 1, 0)];
+    return [self initWithPosition:GLKVector3Make(0, 0, 0) ForwardVector:GLKVector3Make(0, 0, -5) UpwardVector:GLKVector3Make(0, 1, 0) Rotation:0 RotationAxis:GLKVector3Make(0, 1, 0)];
 }
 
 // translate the position of the camera in world space
-- (void)translate:(GLKVector3)t
-{  
-    position = GLKVector3Add(position, t);
+- (void)translate:(float)forwardVelocity
+{
+    /*
+    float xComponent = fabs(forwardVelocity) * sin(rotation);
+    float zComponent = fabs(forwardVelocity) * cos(rotation);
+    
+    if (forwardVelocity < 0)
+    {
+        xComponent = -xComponent;
+        zComponent = -zComponent;
+    }
+     */
+    GLKVector3 move = GLKVector3Make(0, 0, forwardVelocity);
+    position = GLKVector3Add(position, move);
 }
 
 // rotate the camera in world space
@@ -61,6 +72,7 @@
     // rotate using right hand rule will have counter clockwise rotation
     // make it clockwise by default
     rotation += rotAngle;
+    NSLog(@"%f", rotation);
     if (rotation >= 360) {
         rotation -= 360;
     }
@@ -71,14 +83,13 @@
 
 - (void)reset
 {
-    position = originalTranslation;
+    position = originalPosition;
     rotation = originalRotation;
 }
 
 // create the model view matrix
 - (GLKMatrix4)getViewMatrix
 {
-    GLKMatrix4 viewMatrix = GLKMatrix4Identity;
     
     // create the quaternion so no gimbal lock
     // flip the rotation so everything else rotates the opposite way
@@ -87,8 +98,16 @@
     
     // we are shifting the world based on the camera's position
     // so we have to go the opposite direction
+    // update the forward vector
+    GLKVector3 rotatedForwardVector = GLKMatrix4MultiplyVector3(quaternionMatrix, forwardVector);
+    
+    GLKVector3 target = GLKVector3Add(position, rotatedForwardVector);
+    GLKMatrix4 viewMatrix = GLKMatrix4MakeLookAt(position.x, position.y, position.z, target.x, target.y, target.z, upwardVector.x, upwardVector.y, upwardVector.z);
+    /*
+    GLKMatrix4 viewMatrix = GLKMatrix4Identity;
     viewMatrix = GLKMatrix4Translate(viewMatrix, -position.x, -position.y, -position.z);
     viewMatrix = GLKMatrix4Multiply(viewMatrix, quaternionMatrix);
+     */
     return viewMatrix;
 }
 @end
