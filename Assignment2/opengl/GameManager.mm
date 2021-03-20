@@ -82,16 +82,17 @@
 - (void) draw
 {
     [renderer clear];
-    
-    if (display2DMap)
-    {
-        [self draw2DMaze];
-        //return;
-    }
 
     for (GameObject *obj in tracker.objects)
     {
         [renderer draw:obj];
+    }
+    
+    if (display2DMap)
+    {
+        glClear(GL_DEPTH_BUFFER_BIT);
+        [self draw2DMaze];
+        //return;
     }
 }
 

@@ -55,6 +55,10 @@
     glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
     glEnable(GL_DEPTH_TEST);
     
+    // Setup blending
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+    
     // Calculate projection matrix
     float aspect = fabsf((float)(theView.bounds.size.width / theView.bounds.size.height));
     projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
@@ -92,7 +96,6 @@
     glUniformMatrix4fv(obj.uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, modelViewProjectionMatrix.m);
     glUniformMatrix3fv(obj.uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, obj.normalMatrix.m);
     // ### Set values for lighting parameter uniforms here...
-    
 
     glDrawElements(GL_TRIANGLES, obj.numIndices, GL_UNSIGNED_INT, 0);
     
