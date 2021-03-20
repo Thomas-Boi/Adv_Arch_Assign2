@@ -21,8 +21,8 @@
 @property GLKMatrix3 normalMatrix;
 
 // diffuse lighting parameters
-//@property GLKVector4 diffuseLightPosition;
-//@property GLKVector4 diffuseComponent;
+@property GLKVector4 diffuseLightPosition;
+@property GLKVector4 diffuseComponent;
 
 // VAO and index buffer
 @property(readonly) GLuint vertexArray;
@@ -39,6 +39,7 @@
 - (void)loadModels:(NSString *)modelName;
 - (void)loadModelMatrix:(GLKMatrix4) modelMatrix;
 - (void)loadTexture:(NSString *)textureFileName;
+- (void)setDiffuseLightPosition:(GLKVector4)diffuseLightPosition DiffuseComponent: (GLKVector4)component;
 
 // lifecyces
 - (void)update;

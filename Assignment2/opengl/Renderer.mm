@@ -27,10 +27,10 @@
     
     // Lighting parameters
     // ### Add lighting parameter variables here...
-    //GLKVector4 specularLightPosition;
-    //GLKVector4 specularComponent;
-    //GLfloat shininess;
-    //GLKVector4 ambientComponent;
+    GLKVector4 specularLightPosition;
+    GLKVector4 specularComponent;
+    GLfloat shininess;
+    GLKVector4 ambientComponent;
 }
 
 @end
@@ -61,14 +61,10 @@
     useFog = 0;
     
     // Set up lighting values
-    //specularComponent = GLKVector4Make(0.8f, 0.1f, 0.1f, 1.0f);
-    //specularLightPosition = GLKVector4Make(0.0f, 0.0f, 1.0f, 1.0f);
-    //shininess = 1000.0f;
-    //ambientComponent = GLKVector4Make(0.2f, 0.2f, 0.2f, 1.0f);
-    //objects[0].diffuseLightPosition = GLKVector4Make(0.0f, 1.0f, 0.0f, 1.0f);
-    //objects[0].diffuseComponent = GLKVector4Make(0.1f, 0.8f, 0.1f, 1.0f);
-    //objects[1].diffuseLightPosition = GLKVector4Make(-2.0f, 1.0f, 0.0f, 1.0f);
-    //objects[1].diffuseComponent = GLKVector4Make(0.0f, 1.0f, 0.0f, 1.0f);
+    specularComponent = GLKVector4Make(0.8f, 0.1f, 0.1f, 1.0f);
+    specularLightPosition = GLKVector4Make(0.0f, 0.0f, 1.0f, 1.0f);
+    shininess = 1000.0f;
+    ambientComponent = GLKVector4Make(0.2f, 0.2f, 0.2f, 1.0f);
     
     // Initialize GL color and other parameters
     glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );

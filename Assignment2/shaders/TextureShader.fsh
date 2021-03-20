@@ -12,20 +12,20 @@ out vec4 fragColor;
 uniform sampler2D texSampler;
 
 // ### Set up lighting parameters as uniforms
-// uniforms for lighting parameters
-//uniform vec4 specularLightPosition;
-//uniform vec4 diffuseLightPosition;
-//uniform vec4 diffuseComponent;
-//uniform float shininess;
-//uniform vec4 specularComponent;
-//uniform vec4 ambientComponent;
+//uniforms for lighting parameters
+uniform vec4 specularLightPosition;
+uniform vec4 diffuseLightPosition;
+uniform vec4 diffuseComponent;
+uniform float shininess;
+uniform vec4 specularComponent;
+uniform vec4 ambientComponent;
 uniform bool useFog;
 
 void main()
 {
     // ### Calculate phong model using lighting parameters and interpolated values from vertex shader
     // ambient lighting calculation
-    /*vec4 ambient = ambientComponent;
+    vec4 ambient = ambientComponent;
 
     // diffuse lighting calculation
     vec3 N = normalize(eyeNormal);
@@ -44,7 +44,7 @@ void main()
     }
 
     // Regular textured simplified Phong
-    fragColor = ambient + diffuse + specular;*/
+    fragColor = ambient + diffuse + specular;
     //fragColor = fragColor * texture(texSampler, texCoordOut);
     
     if (useFog)
