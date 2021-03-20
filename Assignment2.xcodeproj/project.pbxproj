@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		620A231C26019B1B00D0EBE5 /* Flashlight.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 620A231B26019B1B00D0EBE5 /* Flashlight.fsh */; };
-		620A232026019B4800D0EBE5 /* Flashlight.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 620A231F26019B4800D0EBE5 /* Flashlight.vsh */; };
-		620A23252601A26300D0EBE5 /* FogShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 620A23242601A26300D0EBE5 /* FogShader.vsh */; };
-		620A23282601A28100D0EBE5 /* FogShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 620A23272601A28100D0EBE5 /* FogShader.fsh */; };
-		620A23372601AE4300D0EBE5 /* Lighting.mm in Sources */ = {isa = PBXBuildFile; fileRef = 620A23362601AE4300D0EBE5 /* Lighting.mm */; };
 		FA0E6B202601AA2400ACBEDC /* brick.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA0E6B1F2601AA2400ACBEDC /* brick.jpg */; };
 		FA26B768260310A800A48B61 /* grafiti.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA26B765260310A700A48B61 /* grafiti.jpg */; };
 		FA26B769260310A800A48B61 /* asphalt.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA26B766260310A700A48B61 /* asphalt.jpg */; };
@@ -45,12 +40,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		620A231B26019B1B00D0EBE5 /* Flashlight.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Flashlight.fsh; sourceTree = "<group>"; };
-		620A231F26019B4800D0EBE5 /* Flashlight.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Flashlight.vsh; sourceTree = "<group>"; };
-		620A23242601A26300D0EBE5 /* FogShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = FogShader.vsh; sourceTree = "<group>"; };
-		620A23272601A28100D0EBE5 /* FogShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = FogShader.fsh; sourceTree = "<group>"; };
-		620A23352601AE4300D0EBE5 /* Lighting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lighting.h; sourceTree = "<group>"; };
-		620A23362601AE4300D0EBE5 /* Lighting.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Lighting.mm; sourceTree = "<group>"; };
 		FA0E6B1F2601AA2400ACBEDC /* brick.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = brick.jpg; sourceTree = "<group>"; };
 		FA26B765260310A700A48B61 /* grafiti.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grafiti.jpg; sourceTree = "<group>"; };
 		FA26B766260310A700A48B61 /* asphalt.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = asphalt.jpg; sourceTree = "<group>"; };
@@ -191,10 +180,6 @@
 				FA9E3885260269A900CEC9EE /* GreenShader.vsh */,
 				FA4FE52A25F96EBC00452F15 /* TextureShader.fsh */,
 				FA4FE52B25F96EBC00452F15 /* TextureShader.vsh */,
-				620A231B26019B1B00D0EBE5 /* Flashlight.fsh */,
-				620A231F26019B4800D0EBE5 /* Flashlight.vsh */,
-				620A23272601A28100D0EBE5 /* FogShader.fsh */,
-				620A23242601A26300D0EBE5 /* FogShader.vsh */,
 			);
 			path = shaders;
 			sourceTree = "<group>";
@@ -209,8 +194,6 @@
 				FACA780725FF13C600DDC233 /* GameObject.mm */,
 				FACA780325FF0D3800DDC233 /* Cube.h */,
 				FACA780425FF0D4F00DDC233 /* Cube.mm */,
-				620A23352601AE4300D0EBE5 /* Lighting.h */,
-				620A23362601AE4300D0EBE5 /* Lighting.mm */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -293,16 +276,12 @@
 				FA9E38832602699F00CEC9EE /* GreenShader.fsh in Resources */,
 				FA26B768260310A800A48B61 /* grafiti.jpg in Resources */,
 				FA8AAC1426008C0700A6E0EA /* RedShader.vsh in Resources */,
-				620A23252601A26300D0EBE5 /* FogShader.vsh in Resources */,
 				FA4FE53925F972B600452F15 /* crate.jpg in Resources */,
-				620A231C26019B1B00D0EBE5 /* Flashlight.fsh in Resources */,
-				620A232026019B4800D0EBE5 /* Flashlight.vsh in Resources */,
 				FA4FE51525F96E3E00452F15 /* Main.storyboard in Resources */,
 				FA4FE52F25F96EBC00452F15 /* TextureShader.vsh in Resources */,
 				FA26B769260310A800A48B61 /* asphalt.jpg in Resources */,
 				FA26B76A260310A800A48B61 /* stonewall.jpg in Resources */,
 				FA4FE52F25F96EBC00452F15 /* TextureShader.vsh in Resources */,
-				620A23282601A28100D0EBE5 /* FogShader.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,7 +304,6 @@
 				FACA781B25FF1CCC00DDC233 /* Player.mm in Sources */,
 				FA4FE51D25F96E3E00452F15 /* main.m in Sources */,
 				FACA781525FF1C7D00DDC233 /* GameManager.mm in Sources */,
-				620A23372601AE4300D0EBE5 /* Lighting.mm in Sources */,
 				FA4FE54D25F9A62F00452F15 /* Renderer.mm in Sources */,
 				FA4FE50F25F96E3E00452F15 /* SceneDelegate.m in Sources */,
 				FAD55AF225FFDE14009974BC /* MazeManager.mm in Sources */,

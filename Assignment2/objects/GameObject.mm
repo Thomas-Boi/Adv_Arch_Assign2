@@ -32,7 +32,11 @@ enum
     // VAO and VBO buffers
     GLuint vertexArray;
     GLuint vertexBuffers[3];
-    GLuint indexBuffer;    
+    GLuint indexBuffer;
+    
+    // Lighting parameters
+    // ### Add lighting parameter variables here...
+    
 }
 @end
 
@@ -43,6 +47,10 @@ enum
 @synthesize modelViewMatrix;
 @synthesize normalMatrix;
 
+// lighting
+//@synthesize diffuseLightPosition;
+//@synthesize diffuseComponent;
+
 @synthesize vertexArray;
 @synthesize indexBuffer;
 @synthesize numIndices;
@@ -50,6 +58,7 @@ enum
 // shaders
 @synthesize programObject;
 @synthesize texture;
+
 - (GLint *) uniforms
 {
     return _uniforms;
@@ -126,8 +135,16 @@ enum
     _uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(programObject, "normalMatrix");
     _uniforms[UNIFORM_MODELVIEW_MATRIX] = glGetUniformLocation(programObject, "modelViewMatrix");
     _uniforms[UNIFORM_TEXTURE] = glGetUniformLocation(programObject, "texSampler");
+    
     // ### Add lighting uniform locations here...
-
+//    _uniforms[UNIFORM_LIGHT_SPECULAR_POSITION] = glGetUniformLocation(programObject, "specularLightPosition");
+//    _uniforms[UNIFORM_LIGHT_DIFFUSE_POSITION] = glGetUniformLocation(programObject, "diffuseLightPosition");
+//    _uniforms[UNIFORM_LIGHT_DIFFUSE_COMPONENT] = glGetUniformLocation(programObject, "diffuseComponent");
+//    _uniforms[UNIFORM_LIGHT_SHININESS] = glGetUniformLocation(programObject, "shininess");
+//    _uniforms[UNIFORM_LIGHT_SPECULAR_COMPONENT] = glGetUniformLocation(programObject, "specularComponent");
+//    _uniforms[UNIFORM_LIGHT_AMBIENT_COMPONENT] = glGetUniformLocation(programObject, "ambientComponent");
+    _uniforms[UNIFORM_USE_FOG] = glGetUniformLocation(programObject, "useFog");
+    
     // Set up lighting parameters
     // ### Set default lighting parameter values here...
 
@@ -191,6 +208,7 @@ enum
 // this should be implemented by the child classes
 - (void)update
 {
+    
     
 }
 

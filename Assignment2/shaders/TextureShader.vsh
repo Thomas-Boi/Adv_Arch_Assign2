@@ -1,6 +1,6 @@
 // vertex shader. This just make a pass through shader
 #version 300 es
-precision highp float;
+//precision highp float;
 
 layout(location = 0) in vec4 position;
 layout(location = 1) in vec3 normal;

@@ -36,24 +36,31 @@
     if (sender.numberOfTouches == 1) {
         CGPoint velocity = [sender velocityInView:self.view];
 
+        // minimum velocity before we count
+        float minimum = 50;
+        //NSLog(@"x: %f", velocity.x);
+        //NSLog(@"y: %f", velocity.y);
+        
+        if (velocity.x > minimum) {
+            // drag left to right equals clockwise
+            // need to make it counter clockwise so use negative
+            [cameraTransformations rotate:-0.02];
+        } else if (velocity.x < -minimum) {
+            // draft right to left equals counter clockwise
+            // need to make it clock wise so use negative
+            [cameraTransformations rotate:0.02];
+        }
+        
         // Y-up is negative, Y-down is positive
         // remember this for rotation as well
-        GLKVector3 mov = GLKVector3Make(0.0f, 0.0f, 0.0f);
-        
-        if (velocity.x > 0) {
-            // drag left to right equals clockwise
-            [cameraTransformations rotate:-0.01];
-        } else if (velocity.x < 0) {
-            // draft right to left equals counter clockwise
-            [cameraTransformations rotate:0.01];
-        }
-        if (velocity.y > 0) { // up
-            mov.z += 0.1f;
-        } else if (velocity.y < 0) { // down
-            mov.z += -0.1f;
+        float forwardVelocity = 0;
+        if (velocity.y > minimum) { // up to down
+            forwardVelocity = 0.1;
+        } else if (velocity.y < -minimum) { // down to up
+            forwardVelocity = -0.1f;
         }
         
-        [cameraTransformations translate:mov];
+        [cameraTransformations translate:forwardVelocity];
         
     }
 }
@@ -72,13 +79,17 @@
 // MARK: Game options
 
 - (IBAction)switchFog:(UIButton *)sender {
-    if (!fogState) {
+    glesRenderer.useFog = !glesRenderer.useFog;
+    NSString *fogBtnTitle = glesRenderer.useFog ? @"Fog: On" : @"Fog: Off";
+    [_fogBtn setTitle:fogBtnTitle forState:UIControlStateNormal];
+    
+    /*if (!glesRenderer.useFog) {
         [_fogBtn setTitle:@"Fog: On" forState:UIControlStateNormal];
-        fogState = true;
+        glesRenderer.useFog = true;
     } else {
         [_fogBtn setTitle:@"Fog: Off" forState:UIControlStateNormal];
-        fogState = false;
-    }
+        glesRenderer.useFog = false;
+    }*/
 }
 
 - (IBAction)switchFlashlight:(UIButton *)sender {
@@ -120,8 +131,8 @@
     GLKView *view = (GLKView *)self.view;
     // Initialize transformations for the player
     
-    // -1, -5
-    cameraTransformations = [[CameraTransformations alloc] init];
+    // use default setting.
+    cameraTransformations = [[CameraTransformations alloc] initWithDefaultValues];
     
     // set up the opengl window and draw
     // set up the manager

@@ -20,6 +20,10 @@
 @property GLKMatrix4 modelViewMatrix;
 @property GLKMatrix3 normalMatrix;
 
+// diffuse lighting parameters
+//@property GLKVector4 diffuseLightPosition;
+//@property GLKVector4 diffuseComponent;
+
 // VAO and index buffer
 @property(readonly) GLuint vertexArray;
 @property(readonly) GLuint indexBuffer;
