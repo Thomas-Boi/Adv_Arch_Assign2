@@ -31,6 +31,9 @@
     GLKVector4 specularComponent;
     GLfloat shininess;
     GLKVector4 ambientComponent;
+    
+    GLKVector4 dayLight;
+    GLKVector4 nightLight;
 }
 
 @end
@@ -61,13 +64,18 @@
     useFog = 0;
     
     // Set up lighting values
-    specularComponent = GLKVector4Make(0.8f, 0.1f, 0.1f, 1.0f);
-    specularLightPosition = GLKVector4Make(0.0f, 0.0f, 1.0f, 1.0f);
+    // day and night
+    dayLight = GLKVector4Make(255/255.0f, 255/255.0f, 255/255.0f, 1.0f);
+    nightLight = GLKVector4Make(100/255.0f, 100/255.0f, 100/255.0f, 1.0f);
+    
+    // global light values
+    specularComponent = nightLight;
+    specularLightPosition = GLKVector4Make(0.0f, 1.0f, 0.0f, 1.0f);
     shininess = 1000.0f;
     ambientComponent = GLKVector4Make(0.2f, 0.2f, 0.2f, 1.0f);
     
     // Initialize GL color and other parameters
-    glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
+    glClearColor ( 0.0f, 0.0f, 0.0f, 1.0f );
     glEnable(GL_DEPTH_TEST);
     
     // Setup blending
@@ -109,17 +117,18 @@
     GLKMatrix4 modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, obj.modelViewMatrix);
 
     // pass on global lighting, fog and texture values
-    //glUniform4fv(obj.uniforms[UNIFORM_LIGHT_SPECULAR_POSITION], 1, specularLightPosition.v);
-    //glUniform1i(obj.uniforms[UNIFORM_LIGHT_SHININESS], shininess);
-    //glUniform4fv(obj.uniforms[UNIFORM_LIGHT_SPECULAR_COMPONENT], 1, specularComponent.v);
-    //glUniform4fv(obj.uniforms[UNIFORM_LIGHT_AMBIENT_COMPONENT], 1, ambientComponent.v);
+    glUniform4fv(obj.uniforms[UNIFORM_LIGHT_SPECULAR_POSITION], 1, specularLightPosition.v);
+    glUniform1i(obj.uniforms[UNIFORM_LIGHT_SHININESS], shininess);
+    glUniform4fv(obj.uniforms[UNIFORM_LIGHT_SPECULAR_COMPONENT], 1, specularComponent.v);
+    glUniform4fv(obj.uniforms[UNIFORM_LIGHT_AMBIENT_COMPONENT], 1, ambientComponent.v);
     glUniform1i(obj.uniforms[UNIFORM_USE_FOG], useFog);
     
     // ### Set values for lighting parameter uniforms here...
-    //glUniform4fv(obj.uniforms[UNIFORM_LIGHT_DIFFUSE_POSITION], 1, obj.diffuseLightPosition.v);
-    //glUniform4fv(obj.uniforms[UNIFORM_LIGHT_DIFFUSE_COMPONENT], 1, obj.diffuseComponent.v);
+    glUniform4fv(obj.uniforms[UNIFORM_LIGHT_DIFFUSE_POSITION], 1, obj.diffuseLightPosition.v);
+    glUniform4fv(obj.uniforms[UNIFORM_LIGHT_DIFFUSE_COMPONENT], 1, obj.diffuseComponent.v);
     
     glUniformMatrix4fv(obj.uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, modelViewProjectionMatrix.m);
+    glUniformMatrix4fv(obj.uniforms[UNIFORM_MODELVIEW_MATRIX], 1, 0, obj.modelViewMatrix.m);
     glUniformMatrix3fv(obj.uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, obj.normalMatrix.m);
 
     glDrawElements(GL_TRIANGLES, obj.numIndices, GL_UNSIGNED_INT, 0);
