@@ -44,7 +44,7 @@ void main()
     }
 
     // Regular textured simplified Phong
-    fragColor = ambient + specular;
+    fragColor = ambient + diffuse + specular;
     fragColor = fragColor * texture(texSampler, texCoordOut);
     
     if (useFog)

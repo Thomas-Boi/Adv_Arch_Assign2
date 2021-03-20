@@ -41,6 +41,8 @@
 - (void)loadTexture:(NSString *)textureFileName;
 - (void)setDiffuseLightPosition:(GLKVector4)diffuseLightPosition DiffuseComponent: (GLKVector4)component;
 
+- (void) setDefaultDiffuseLight;
+
 // lifecyces
 - (void)update;
 - (void)updateWithViewMatrix:(GLKMatrix4) viewMatrix;

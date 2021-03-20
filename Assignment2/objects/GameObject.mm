@@ -208,6 +208,12 @@ enum
     self.diffuseComponent = component;
 }
 
+- (void)setDefaultDiffuseLight
+{
+    [self setDiffuseLightPosition:GLKVector4Make(0, 1, 0, 1) DiffuseComponent:GLKVector4Make(255/255.0f, 255/255.0f, 255/255.0f, 1.0)];
+}
+
+
 // lifecycle
 // update the object every draw cycle
 // this should be implemented by the child classes

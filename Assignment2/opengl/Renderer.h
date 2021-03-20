@@ -11,7 +11,10 @@
 
 @property bool useFog;
 
-- (void)setup:(GLKView *)view;  
+- (void)setup:(GLKView *)view;
+
+- (void)setIsFoggy:(bool) newIsFoggy;
+- (void)setIsDay:(bool) newIsDay;
 - (void)clear;
 - (void)draw:(GameObject *) obj;
 

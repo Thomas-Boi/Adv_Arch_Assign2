@@ -221,6 +221,7 @@ enum MazeWall {
         [obj loadModels:@"Cube"];
         [obj loadModelMatrix:transformation];
         [obj loadTexture:@"asphalt.jpg"];
+        [obj setDefaultDiffuseLight];
         [_walls3D addObject:obj];
     }
      
@@ -283,6 +284,7 @@ enum MazeWall {
         [obj loadModels:@"Cube"];
         [obj loadModelMatrix:transform];
         [obj loadTexture:textureFilename];
+        [obj setDefaultDiffuseLight];
         [_walls3D addObject:obj];
         
     }

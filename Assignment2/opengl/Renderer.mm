@@ -32,6 +32,7 @@
     GLfloat shininess;
     GLKVector4 ambientComponent;
     
+    // track day or night setting
     GLKVector4 dayLight;
     GLKVector4 nightLight;
 }
@@ -61,7 +62,7 @@
     [EAGLContext setCurrentContext:view.context];
 
     // Fog uniforms
-    useFog = 0;
+    useFog = false;
     
     // Set up lighting values
     // day and night
@@ -69,7 +70,7 @@
     nightLight = GLKVector4Make(100/255.0f, 100/255.0f, 100/255.0f, 1.0f);
     
     // global light values
-    specularComponent = nightLight;
+    specularComponent = dayLight;
     specularLightPosition = GLKVector4Make(0.0f, 1.0f, 0.0f, 1.0f);
     shininess = 1000.0f;
     ambientComponent = GLKVector4Make(0.2f, 0.2f, 0.2f, 1.0f);
@@ -86,6 +87,16 @@
     float aspect = fabsf((float)(theView.bounds.size.width / theView.bounds.size.height));
     projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
     
+}
+
+- (void)setIsFoggy:(bool) newIsFoggy
+{
+    useFog = newIsFoggy;
+}
+
+- (void)setIsDay:(bool) newIsDay
+{
+    specularComponent = newIsDay ? dayLight : nightLight;
 }
 
 - (void)clear
@@ -116,6 +127,7 @@
     // Set up uniforms for the shaders
     GLKMatrix4 modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, obj.modelViewMatrix);
 
+    // update specular
     // pass on global lighting, fog and texture values
     glUniform4fv(obj.uniforms[UNIFORM_LIGHT_SPECULAR_POSITION], 1, specularLightPosition.v);
     glUniform1i(obj.uniforms[UNIFORM_LIGHT_SHININESS], shininess);
